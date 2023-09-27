@@ -14,9 +14,9 @@ export default Button;
 
 const BUTTON=styled.button`
     color: white;
-    border-radius: 20px;
+    border-radius: 25px;
     background-color: green;
-    width: 100px;
+    width: 130px;
     height: 50px;
     border: none;
 `

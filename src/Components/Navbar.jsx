@@ -1,8 +1,10 @@
-import React from 'react'
-import logo from '../assets/logo.png'
+import React from 'react';
+import {styled} from "styled-components";
+
+
 function Navbar() {
   return (
-    <nav style={{display:'flex', justifyContent:'space-around', alignItems:'center'}}>
+    <DIV>
       <div>
         <h2>Shopcart</h2>
       </div>
@@ -15,8 +17,14 @@ function Navbar() {
         <a style={{textDecoration:'none', color:'black', fontWeight:"bold"}} href="">A</a>
         <a style={{textDecoration:'none', color:'black', fontWeight:"bold"}} href="">Cart</a>
       </div>
-    </nav>
+    </DIV>
   )
 }
 
 export default Navbar
+
+const DIV = styled.div`
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+`

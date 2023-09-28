@@ -1,9 +1,12 @@
+import Navbar from "./Components/Navbar";
+import Landing from "./Pages/Landing";
 
 function App() {
   return (
     
     <div className="App">
-      <h1>Hi from Decisive-Duck</h1>
+      <Navbar/>
+      <Landing/>
     </div>
   );
 }

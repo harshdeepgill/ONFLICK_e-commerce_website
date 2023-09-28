@@ -1,8 +1,12 @@
 import React from 'react'
+import Navbar from '../Components/Navbar'
+import CategoryGrid from '../Components/CategoryGrid/CategoryGrid'
 
 const Landing = () => {
   return (
-    <div>Landing</div>
+    <div>
+      <CategoryGrid/>
+    </div>
   )
 }
 

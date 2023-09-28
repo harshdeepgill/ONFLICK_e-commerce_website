@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {styled} from "styled-components";
 import {ChevronDownIcon, SearchIcon} from "@chakra-ui/icons";
@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { getSearch } from '../Redux/SearchReducer/action';
 import { useDebounce } from '../CoustomHooks/useDebounce';
 import NavSearchCard from './NavSearchCard';
+import SignInAndSignUp from './SignInAndSignUp';
 
 
 const categoryData = [
@@ -32,8 +33,10 @@ const categoryData = [
 
 function Navbar() {
   const [focus, setFocus] = useState(false);
+  const [typed, setTyped] = useState(false);
   const dispatch = useDispatch();
-  const newFunc = useDebounce(1000,dispatch)
+  const newFunc = useDebounce(1000,dispatch);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const {isLoading,isError, products} = useSelector((store)=> {
     return {
@@ -48,7 +51,12 @@ function Navbar() {
   }
 
   const handleSearch = (e)=>{
-    newFunc(getSearch(e.target.value));
+    if(e.target.value.length > 0){
+      setTyped(true);
+      newFunc(getSearch(e.target.value));
+    }else{
+      setTyped(false);
+    }
   }
 
   return (
@@ -74,39 +82,42 @@ function Navbar() {
     </Menu>
       </DIV2>
 
+          {!focus && 
       <DIV2>
         <div>Deals</div>
         <div>What's New</div>
         <div>Sale</div>
       </DIV2>
+          }
 
-      <div style={{position:"relative"}}>
+      <Box  position={"relative"} w={focus && "80%"}>
         <div>
-          <InputGroup>
-            <Input onChange={handleSearch} onFocus={hanldeSearchFocus}/>
+          <InputGroup >
+            <Input w={"100%"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
             <InputRightElement>
               <SearchIcon/>
             </InputRightElement>
           </InputGroup>
         </div>
-        <SEARCHMENU focus={focus}>
+        <SEARCHMENU focus={typed}>
           <Card>
             <CardBody>
               <Stack divider={<StackDivider />} spacing='4'>
-                {products?.map(el => <NavSearchCard/>)}
+                {products?.map(el => <NavSearchCard key={el.id} halfStar={Math.ceil(el.rating)-Math.floor(el.rating) == 1? 1:0} emptyStar={5 - Math.ceil(el.rating)} fullStar={Math.floor(el.rating)} {...el}/>)}
               </Stack>
             </CardBody>
           </Card>
         </SEARCHMENU>
 
-      </div>
+      </Box>
         
       </DIV3>
 
 
       <DIV2>
-        <Button >Login/Signup</Button>
+        <Button onClick={onOpen} >Login/Signup</Button>
       </DIV2>
+      <SignInAndSignUp isOpen={isOpen} onClose={onClose}/>
     </DIV>
   )
 }

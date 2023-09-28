@@ -20,6 +20,9 @@ const ImageSlider = ({ images }) => {
     </DIV>
   );
 };
+
+export default ImageSlider;
+
 const DIV = styled.div`
   position: relative;
   max-width: 400px;
@@ -35,5 +38,5 @@ const DIV = styled.div`
   div{
     text-align: center
   }
-`;
-export default ImageSlider;
+`
+

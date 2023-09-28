@@ -16,7 +16,10 @@ import {
 
 const intialRegisteredData = {id:"",password:"",name:""}
 const initialLogin ={id:"",password:""}
-const SignInAndSignUp = () => {
+
+
+
+const SignInAndSignUp = ({onClose,isOpen}) => {
 
   const [registerdData,setRegiteredData] = useState(intialRegisteredData);
   const [loginData,setLogin] = useState(initialLogin)
@@ -24,8 +27,8 @@ const SignInAndSignUp = () => {
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
   
-  const dipatch=useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const dipatch = useDispatch();
+  
 
   const handleRegisterChange=(e)=>{
     const {name,value} = e.target;
@@ -72,7 +75,7 @@ dipatch(register(registerdData))
 
 
     <>
-    <Button onClick={onOpen}>Trigger modal</Button>
+    
 
     <Modal   onClose={onClose} isOpen={isOpen} size="sm" isCentered>
     <ModalOverlay

@@ -1,3 +1,5 @@
+import AllRoutes from "./Components/AllRoutes";
+import Navbar from "./Components/Navbar";
 import ImageSlider from "./Components/ImageSlider";
 
 
@@ -5,7 +7,8 @@ function App() {
   
   return (
     <div className="App">
-      <h1>Hi from Decisive Duck</h1>
+      <Navbar/>
+      <AllRoutes/>
     </div>
   );
 }

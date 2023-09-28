@@ -1,5 +1,19 @@
 
-/* 
-:root {
+:root{
+    /* Root Colors */
+    --primary: #9c1e67;
+    --border: #000000;
+    --shadow: #151515;
+    --para-text: #696b70;
 
-} */
+
+
+    /* Font Size */
+    --h1: 4.5rem;
+    --h2: 2.65rem;
+    --h3: 3.35rem;
+    --h4: 1.5rem;
+    --h5: 0.9rem;
+    --para: 0.9rem;
+    --para-sm: 0.8rem
+}

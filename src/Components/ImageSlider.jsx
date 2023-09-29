@@ -36,11 +36,12 @@ const ImageSlider = ({ images }) => {
     <DIV>
       <ImageContainer style={{ transform: `translateX(${position}%)` }}>
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            style={{ minWidth: "100vw" }}
-          />
+          <DIV2>
+            <IMG
+              key={index}
+              src={image}
+            />
+          </DIV2>
         ))}
       </ImageContainer>
       <IndicatorContainer>
@@ -92,5 +93,11 @@ const CustomButton = styled.div`
   &:hover {
     background-color: darkslategray; /* Change the background color on hover */
   }
+`
+const IMG = styled.img`
+  width: 100%;
+`
+const DIV2 = styled.div`
+  min-width: 100vw;
 `
 

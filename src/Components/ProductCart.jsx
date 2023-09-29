@@ -1,9 +1,10 @@
 import React from 'react'
 import StarRating from './StarRating'
+import styled from 'styled-components'
 function ProductCart({id, image, title, price, category, rating, numVotes}) {
   return (
-    <div style={{width:"300px", backgroundColor:'#f2f2f2', borderRadius:'25px'}}>
-        <img width={'100%'} height="250px" src={image} alt="image not found"/>
+    <div style={{minWidth:"300px", backgroundColor:'#f2f2f2', borderRadius:'25px'}}>
+        <IMG src={image} alt='Image Not Found'/>
         <div style={{display:'flex', justifyContent:'space-between', padding:'10px'}}>
             <p style={{fontSize:'large', fontWeight:'bold'}}>{title}</p>
             <p style={{fontSize:'large', fontWeight:'bold'}}>{price}</p>
@@ -21,3 +22,10 @@ function ProductCart({id, image, title, price, category, rating, numVotes}) {
 }
 
 export default ProductCart
+
+const IMG = styled.img`
+  object-fit: cover;
+  width: 100%;
+  height: 250px;
+  border-radius: 5% 5% 0 0;
+`

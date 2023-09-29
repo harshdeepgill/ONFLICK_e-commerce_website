@@ -49,20 +49,24 @@ const simlerData = [
       }
 ]
 function ProductDetails() {
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const { products, isLoading } = useSelector((store) => ({
-    products: store.productReducer.products,
-    isLoading: store.productReducer.isLoading,
-  }));
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    dispatch(getProducts());
-    const selectedProduct = products.find((ele) => ele.id === +id);
-    setProduct(selectedProduct);
-  }, [dispatch, id, products]);
-  console.log(product)
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { products, isLoading } = useSelector((store) => store.productReducer);
+    const product = products.find((ele) => ele.id === +id);
+  
+    useEffect(() => {
+      if (!product) {
+        dispatch(getProducts());
+      }
+    }, [id, dispatch, product]);
+  
+    if (isLoading) {
+      return (
+        <LoadingMessage>
+          <h1>Loading...</h1>
+        </LoadingMessage>
+      );
+    }
   return (
     <div>
       {product ? (
@@ -72,40 +76,40 @@ function ProductDetails() {
               <img src={product.image} alt="image not found" />
             </div>
             <div className='titleDiv'>
-                <h1>{product.title}</h1>
-                <p>{product.description}</p>
-                <div className='rating'>
-                    <StarRating rating={product.rating} />
-                    <p>({product.numVotes})</p>
+              <h1>{product.title}</h1>
+              <p>{product.description}</p>
+              <div className='rating'>
+                <StarRating rating={product.rating} />
+                <p>({product.numVotes})</p>
+              </div>
+              <hr />
+              <h3>Price: {product.price} or 99.99/month</h3>
+              <p>Suggested payments with 6 months special financing</p>
+              <hr />
+              <div>
+                <div style={{ display: 'flex', gap: '15px', alignItems: 'center', marginBottom: '25px' }}>
+                  <div style={{ display: 'flex', gap: '25px', backgroundColor: '#f2f2f2', padding: '10px', borderRadius: '35px', marginRight: '15px' }}>
+                    <p>-</p>
+                    <p>1</p>
+                    <p>+</p>
+                  </div>
+                  <p>Only <span style={{ color: '#ffbb33' }}>12 Items</span> Left!<br /> Don't miss it</p>
                 </div>
-                <hr/>
-                <h3>Price: {product.price} or 99.99/month</h3>
-                <p>Suggested payments with 6 months special financing</p>
-                <hr/>
-                <div>
-                    <div style={{display:'flex', gap:'15px', alignItems:'center', marginBottom:'25px'}}>
-                        <div style={{display:'flex', gap:'25px', backgroundColor:'#f2f2f2', padding:'10px', borderRadius:'35px', marginRight:'15px'}}>
-                            <p>-</p>
-                            <p>1</p>
-                            <p>+</p>
-                        </div>
-                        <p>Only <span style={{color:'#ffbb33'}}>12 Items</span> Left!<br/> Don't miss it</p>
-                    </div>
-                    <div style={{display:'flex', gap:'15px', alignItems:'center'}}>
-                        <button style={{backgroundColor:'#00cc44', color:'white', padding:'10px 35px', borderRadius:'35px'}}>Buy Now</button>
-                        <button style={{backgroundColor:'white', color:'#00cc44', padding:'10px 35px', borderRadius:'35px', border:'1px solid #00cc44'}}>Add to Cart</button>
-                    </div>
+                <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+                  <button style={{ backgroundColor: '#00cc44', color: 'white', padding: '10px 35px', borderRadius: '35px' }}>Buy Now</button>
+                  <button style={{ backgroundColor: 'white', color: '#00cc44', padding: '10px 35px', borderRadius: '35px', border: '1px solid #00cc44' }}>Add to Cart</button>
                 </div>
+              </div>
             </div>
           </div>
           <div className='secondSection'>
             <div className='free'>
-                <h5>Free Delivery</h5>
-                <p>Enter your Postal code for Delivery Availabilty</p>
+              <h5>Free Delivery</h5>
+              <p>Enter your Postal code for Delivery Availability</p>
             </div>
             <div className='return'>
-                <h5>Return Delivery</h5>
-                <p>Free 30days Delivery Returns. <span>Details</span></p>
+              <h5>Return Delivery</h5>
+              <p>Free 30 days Delivery Returns. <span>Details</span></p>
             </div>
           </div>
           <div className='thirdSection'>
@@ -124,13 +128,12 @@ function ProductDetails() {
           </div>
           <div className='lastSection'>
             <h1>Similar items you Might like</h1>
-            <div style={{display:'flex', gap:'25px'}}>
-                {simlerData.map((ele)=>(
-                    <ProductCart key={ele.id} {...ele}/>
-                ))}
+            <div style={{ display: 'flex', gap: '25px' }}>
+              {simlerData.map((ele) => (
+                <ProductCart key={ele.id} {...ele} />
+              ))}
             </div>
           </div>
-
         </MainDiv>
       ) : (
         <p>Product not found</p>
@@ -140,6 +143,15 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
+
+const LoadingMessage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  font-weight: bold;
+  margin-top: 250px;
+`;
 
 const MainDiv = styled.div`
   padding: 35px;
@@ -152,7 +164,6 @@ const MainDiv = styled.div`
   }
   .titleDiv {
     width: 40%;
-
     h1 {
       font-size: xx-large;
       font-weight: bold;

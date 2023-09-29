@@ -1,10 +1,16 @@
-import Button from "./Components/Button";
+import React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentForm from "./Pages/PaymentPage";
+
+const stripePromise = loadStripe("your-publishable-stripe-key");
 
 function App() {
   return (
     <div className="App">
-      <h1>Hi from Decisive-Duck</h1>
-      <Button label="Buy Now" className="custom-button" />
+      <Elements stripe={stripePromise}>
+        <PaymentForm />
+      </Elements>
     </div>
   );
 }

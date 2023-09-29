@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {styled} from "styled-components";
 import {ChevronDownIcon, SearchIcon} from "@chakra-ui/icons";
@@ -8,6 +8,9 @@ import { getSearch } from '../Redux/SearchReducer/action';
 import { useDebounce } from '../CoustomHooks/useDebounce';
 import NavSearchCard from './NavSearchCard';
 import SignInAndSignUp from './SignInAndSignUp';
+import { FaOpencart, FaRegHeart } from 'react-icons/fa';
+import { HiOutlineShoppingBag } from "react-icons/hi";
+import Logo from './Logo';
 
 
 const categoryData = [
@@ -31,9 +34,12 @@ const categoryData = [
   }
 ]
 
+const flags = ["https://flagcdn.com/w320/in.png","https://flagcdn.com/w320/us.png", "https://flagcdn.com/w320/ca.png", "https://flagcdn.com/w320/de.png"]
+
 function Navbar() {
   const [focus, setFocus] = useState(false);
   const [typed, setTyped] = useState(false);
+  const [flag, setFlag] = useState("https://flagcdn.com/w320/in.png");
   const dispatch = useDispatch();
   const newFunc = useDebounce(1000,dispatch);
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -59,11 +65,34 @@ function Navbar() {
     }
   }
 
+  const handleFlagChange = (e)=>{
+    setFlag(flags[Number(e.target.value)])
+  }
+
   return (
+    <>
+    <div>
+      <LILDIV>
+        <Link onClick={onOpen}>Sign In / Join <Logo size={"1rem"}/></Link>
+        <Link>Coustomer Care</Link>
+        <FLAGMAINDIV>
+            <FLAGIMG>
+                <img style={{width:"100%"}} src={flag} alt="not availabe"/>
+            </FLAGIMG>
+            <div>
+                <SELECT onChange={handleFlagChange}>
+                    <option value="0"><span>India</span></option>
+                    <option value="1"><span>USA</span></option>
+                    <option value="2"><span>Canada</span></option>
+                    <option value="3"><span>Germany</span></option>
+                </SELECT>
+            </div>
+        </FLAGMAINDIV>
+      </LILDIV>
+    </div>
     <DIV>
       <DIV2>
-        <div style={{width:"50px"}}><img style={{width: "100%"}} src='https://placehold.co/400x400'/></div>
-        <div>ShopCart</div>
+        <Logo size={"2rem"}/>
       </DIV2>
 
       <DIV3>
@@ -92,10 +121,10 @@ function Navbar() {
 
       <Box  position={"relative"} w={focus && "80%"}>
         <div>
-          <InputGroup >
-            <Input w={"100%"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
-            <InputRightElement>
-              <SearchIcon/>
+          <InputGroup alignItems={"center"}>
+            <Input w={"100%"} h={"30px"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
+            <InputRightElement h={"30px"}>
+              <SearchIcon boxSize={3}/>
             </InputRightElement>
           </InputGroup>
         </div>
@@ -115,30 +144,87 @@ function Navbar() {
 
 
       <DIV2>
-        <Button onClick={onOpen} >Login/Signup</Button>
+        <ICONDIV>
+          <FaRegHeart style={{fontSize:"1.5em"}} />
+          <QTYDIV>0</QTYDIV>
+        </ICONDIV>
+        <ICONDIV>
+          <HiOutlineShoppingBag style={{fontSize:"1.8rem"}}/>
+          <QTYDIV>0</QTYDIV>
+        </ICONDIV>
       </DIV2>
       <SignInAndSignUp isOpen={isOpen} onClose={onClose}/>
     </DIV>
+    </>
   )
 }
 
 export default Navbar
 
-const DIV = styled.div`
-  padding: 10px 2% ;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const ICONDIV = styled.div`
+  position: relative;
 `
 
+const QTYDIV = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: red;
+  bottom: 60%;
+  left: 70%;
+  font-size: 0.7rem;
+`
 const DIV2 = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
 `
+const DIV = styled.div`
+  padding: 10px 4% ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const LILDIV = styled.div`
+  background-color: black;
+  color: white;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  padding: 8px 1%;
+`
+
+const FLAGIMG = styled.div`
+  width: 30px;
+`
+
+const SELECT = styled.select`
+  width: 80px;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  color: #484848;
+  margin-left: 7px;
+`
+
+const FLAGMAINDIV = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 8px
+`
+
+
+
+
 const DIV3 = styled.div`
   display: flex;
-  width: 60%;
+  width: 50%;
   justify-content: space-between;
 `
 

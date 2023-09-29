@@ -1,11 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Comic+Neue:wght@300;400;700&family=Inter:wght@400;600;800&family=Jost:wght@100;200;400;600;700&family=Montserrat:wght@200;300;400;500;600;700;800&family=Mulish:wght@200;300;400;500;600;700;800;900&family=Oswald:wght@200;500;600;700&family=Poppins:wght@200;300;400;500;600;700;800&family=Raleway:wght@300;400;500;600;700;800&family=Roboto+Condensed:wght@400;700&family=Roboto:wght@300;400;500;700&family=Rubik:wght@400;500;700&display=swap");
+
 
 :root{
     /* Root Colors */
     --primary: #9c1e67;
+    --heading: #3e4152;
     --border: #000000;
     --shadow: #151515;
     --para-text: #696b70;
 
+    /* Font Family */
+    --logo-font-family: 'Jost', sans-serif;
+    --primary-font-family: 'Mulish', sans-serif;
 
 
     /* Font Size */

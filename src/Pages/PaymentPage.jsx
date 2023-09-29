@@ -23,7 +23,6 @@ import {
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContextProvider";
 
 const PaymentPage = () => {
   const toast = useToast();

@@ -1,16 +1,14 @@
-import React from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "./Pages/PaymentPage";
+import AllRoutes from "./Components/AllRoutes";
+import Navbar from "./Components/Navbar";
+import ImageSlider from "./Components/ImageSlider";
 
-const stripePromise = loadStripe("your-publishable-stripe-key");
 
 function App() {
+  
   return (
     <div className="App">
-      <Elements stripe={stripePromise}>
-        <PaymentForm />
-      </Elements>
+      <Navbar/>
+      <AllRoutes/>
     </div>
   );
 }

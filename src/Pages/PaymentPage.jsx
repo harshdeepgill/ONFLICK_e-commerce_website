@@ -249,7 +249,7 @@ const PaymentPage = () => {
               </Modal>
             ) : (
               <Button
-                color="white"
+                color="green"
                 onClick={() => {
                   onOpen();
                   postorders();
@@ -285,7 +285,7 @@ const PaymentPage = () => {
                 onChange={(e) => setUpi(e.target.value)}
               />
               <Button
-                color="white"
+                color="green"
                 bg="pink.500"
                 _hover={{
                   bg: "pink.200",
@@ -309,7 +309,7 @@ const PaymentPage = () => {
                 onChange={(e) => setUpi(e.target.value)}
               />
               <Button
-                color="white"
+                color="green"
                 bg="pink.500"
                 _hover={{
                   bg: "pink.200",
@@ -333,7 +333,7 @@ const PaymentPage = () => {
                 onChange={(e) => setUpi(e.target.value)}
               />
               <Button
-                color="white"
+                color="green"
                 bg="pink.500"
                 _hover={{
                   bg: "pink.200",

@@ -1,5 +1,3 @@
-import ImageSlider from "./Components/ImageSlider";
-
 
 function App() {
   

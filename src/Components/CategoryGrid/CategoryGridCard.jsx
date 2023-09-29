@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const CategoryGridCard = ({text, image}) => {
   return (
     <DIV image={image}>
+      <IMG src={image}/>
         <P>
           <Heading as="h5" size="s">{text}</Heading>
         </P>
@@ -14,14 +15,22 @@ const CategoryGridCard = ({text, image}) => {
 
 export default CategoryGridCard
 
+const IMG = styled.img`
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+`
+
 const DIV = styled.div`
-    background-image: url(${props=>props.image});
-    background-position: center;
-    background-size: cover;
-    border-radius: 5%;
+    border-radius: 1%;
     height: 200px;
     width: 150px;
     position: relative;
+    overflow: hidden;
+
+    img:hover{
+      transform: scale(1.2);
+    }
 `
 
 const P = styled.p`

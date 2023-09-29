@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {Button} from "@chakra-ui/react"
+import {Button} from "@chakra-ui/react";
+
+
+
+
 const ImageSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [position, setPosition] = useState(0);
@@ -23,7 +27,7 @@ const ImageSlider = ({ images }) => {
     const intervalId = setInterval(() => {
       nextImage();
       setPosition(-currentIndex * 100); // Adjust the position for smooth sliding
-    }, 2000);
+    }, 8000);
     return () =>{
       clearInterval(intervalId)
     }
@@ -35,7 +39,6 @@ const ImageSlider = ({ images }) => {
           <img
             key={index}
             src={image}
-            alt={`Slide ${index}`}
             style={{ minWidth: "100vw" }}
           />
         ))}
@@ -43,9 +46,9 @@ const ImageSlider = ({ images }) => {
       <IndicatorContainer>
         {images.map((_, index) => (
           <CustomButton
+            currInd={index}
+            currentIndex={currentIndex}
             key={index}
-            size="sm"
-            variant="ghost"
             onClick={() => {
               setCurrentIndex(index);
               setPosition(-index * 100);
@@ -79,11 +82,12 @@ const IndicatorContainer = styled.div`
   margin-top: 10px;
 `;
 
-const CustomButton = styled(Button)`
+const CustomButton = styled.div`
   width: 20px; /* Set the button width */
   height: 20px; /* Set the button height */
   border-radius: 50%; /* Make the button perfectly circular */
   margin: 0 5px; /* Add some margin between the dots */
+  background-color: ${(props) => (props.currInd == props.currentIndex? "black": "gray")};
 
   &:hover {
     background-color: darkslategray; /* Change the background color on hover */

@@ -97,6 +97,7 @@ const CustomButton = styled.div`
 `
 const IMG = styled.img`
   width: 100%;
+  object-fit: cover;
 `
 const DIV2 = styled.div`
   min-width: 100vw;

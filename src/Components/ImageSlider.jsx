@@ -36,11 +36,12 @@ const ImageSlider = ({ images }) => {
     <DIV>
       <ImageContainer style={{ transform: `translateX(${position}%)` }}>
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            style={{ minWidth: "100vw" }}
-          />
+          <DIV2>
+            <IMG
+              key={index}
+              src={image}
+            />
+          </DIV2>
         ))}
       </ImageContainer>
       <IndicatorContainer>
@@ -83,14 +84,21 @@ const IndicatorContainer = styled.div`
 `;
 
 const CustomButton = styled.div`
-  width: 20px; /* Set the button width */
-  height: 20px; /* Set the button height */
+  width: 10px; /* Set the button width */
+  height: 10px; /* Set the button height */
   border-radius: 50%; /* Make the button perfectly circular */
   margin: 0 5px; /* Add some margin between the dots */
-  background-color: ${(props) => (props.currInd == props.currentIndex? "black": "gray")};
+  background-color: ${(props) => (props.currInd == props.currentIndex? "gray": "white")};
+  border: 1px solid gray;
 
   &:hover {
     background-color: darkslategray; /* Change the background color on hover */
   }
+`
+const IMG = styled.img`
+  width: 100%;
+`
+const DIV2 = styled.div`
+  min-width: 100vw;
 `
 

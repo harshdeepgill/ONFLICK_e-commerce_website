@@ -84,11 +84,12 @@ const IndicatorContainer = styled.div`
 `;
 
 const CustomButton = styled.div`
-  width: 20px; /* Set the button width */
-  height: 20px; /* Set the button height */
+  width: 10px; /* Set the button width */
+  height: 10px; /* Set the button height */
   border-radius: 50%; /* Make the button perfectly circular */
   margin: 0 5px; /* Add some margin between the dots */
-  background-color: ${(props) => (props.currInd == props.currentIndex? "black": "gray")};
+  background-color: ${(props) => (props.currInd == props.currentIndex? "gray": "white")};
+  border: 1px solid gray;
 
   &:hover {
     background-color: darkslategray; /* Change the background color on hover */

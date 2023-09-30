@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CategoryGrid from './CategoryGrid/CategoryGrid'
 import ImageSlider from './ImageSlider';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import { Flex, Heading , Text} from '@chakra-ui/react';
 import CardSwitcher from './CardSwitcher/CardSwitcher';
 import ProductCart from './ProductCart';
 import PaymentPage from '../Pages/PaymentPage';
+import SimpleTextCard from './Cards/SimpleTextCard';
 
 const urls = [
   "https://assets.myntassets.com/f_webp,w_404,c_limit,fl_progressive,dpr_2.0/assets/images/2023/9/16/c8d03b7a-2115-403a-9079-099bb1bc163a1694878389211-Desktop-Phase_1-DK-Main-Banner.jpg",
@@ -104,37 +105,93 @@ const dummyData = [
   }
 ]
 
+const productTextSwitcher = ["Bookshelf", "Wardrobe", "Hiking Boots", "Drawers", "Leather Sofa", "Recliner Chair","Bluetooth Earbuds", "Gaming Headset"]
+
 const WOLoginHome = () => {
+  const [color, setColor] = useState(false);
+
+
+  useEffect(()=>{
+    let intervalID = setInterval(()=>{
+      setColor(prev => !prev);
+    },1000)
+
+    return () =>{
+      clearInterval(intervalID);
+    }
+  },[])
   return (
     <DIV>
+
+      {/* -------------GIF SECTION--------------------- */}
       <GIFDIV>
-        <Flex flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w={"100%"} height={"100%"}>
-          <Heading as='h2' size='2xl' >SALE SALE SALE</Heading>
-          <Text>ENJOY UPTO 50% OFF ON ICONIC BRANDS</Text>
+        <Flex  flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w={"100%"} height={"100%"}>
+          <Heading as='h2' size='2xl' letterSpacing={3}>MEGA SALE MADNESS!</Heading>
+          <Text mt={3}>ENJOY UPTO 50% OFF ON ICONIC BRANDS</Text>
         </Flex>
       </GIFDIV>
-      <ImageSlider images={urls}/>
-      <CategoryGrid/>
-      <CardSwitcher minWidth={300}>
-        {dummyData.map(el => <ProductCart key={el.id} {...el}/>)}
-      </CardSwitcher>
+      {/* -------------GIF SECTION--------------------- */}
 
-      {/* <PaymentPage/> */}
+
+      {/* ------------------Image Slider 1------------------------ */}
+      <ImageSlider images={urls}/>
+      {/* ------------------Image Slider 1------------------------ */}
+
+
+      {/* ---------------------Category 1------------------------------------ */}
+      <HEADDIV>
+        <Heading>SHOP BY CATEGORY</Heading>
+      </HEADDIV>
+      <CategoryGrid/>
+      {/* ---------------------Category 1------------------------------------ */}
+
+
+    <div style={{display:"flex", flexDirection:"column", gap:"40px", marginTop:"60px"}}>
+      <TRPDIV color={color}>
+        <div>
+          <Heading color={color?"#ef1b22":"black"}>TOP RATED PRODUCTS</Heading>
+        </div>
+      </TRPDIV>
+      <CardSwitcher center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
+        {productTextSwitcher.map((el,index) => <SimpleTextCard key={index} text={el}/>)}
+      </CardSwitcher>
+    </div>
+
     </DIV>
   )
 }
 
 export default WOLoginHome
 
+const HEADDIV = styled.div`
+  padding: 40px 0 40px 5%;
+  color: var(--heading);
+  font-family: var(--primary-font-family);
+`
+
+const TRPDIV = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div{
+    border: 2px solid;
+    border-color: ${(props) => (props.color?"#ef1b22": "#3e4152;")};
+    padding: 1.5rem 5rem;
+  }
+`
+
 const DIV = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
 `
 
 const GIFDIV = styled.div`
   width: 100%;
   height: 200px;
   background-image: url("https://i.gifer.com/7MpT.gif");
-
+  font-family: var(--primary-font-family);
+  color: white;
 `
+
+

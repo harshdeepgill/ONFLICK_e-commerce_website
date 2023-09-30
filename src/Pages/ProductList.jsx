@@ -4,6 +4,7 @@ import { getProducts } from "../Redux/productReducer/action";
 import styled from "styled-components";
 // import StarRating from "../Components/StarRating";
 import ProductCart from "../Components/ProductCart";
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -14,6 +15,8 @@ export const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch(getProducts());
@@ -106,9 +109,10 @@ export const ProductList = () => {
   );
 };
 const ProductListContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+  padding: 0 2%;
 `;
 
 

@@ -1,5 +1,6 @@
-import { Box, Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Link, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, Heading, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import {Link} from "react-router-dom";
 import {styled} from "styled-components";
 import {ChevronDownIcon, SearchIcon} from "@chakra-ui/icons";
 import NavCatCard from './NavCatCard';
@@ -68,6 +69,7 @@ function Navbar() {
   const handleFlagChange = (e)=>{
     setFlag(flags[Number(e.target.value)])
   }
+  console.log(window.innerWidth)
 
   return (
     <>
@@ -91,11 +93,11 @@ function Navbar() {
       </LILDIV>
     </div>
     <DIV>
-      <DIV2>
-        <Logo size={"2rem"}/>
-      </DIV2>
+      <DIVLOGO>
+        <Link to={"/"}><Logo size={"2rem"}/></Link>
+      </DIVLOGO>
 
-      <DIV3>
+      <MIDDLENAVDIV>
       <DIV2>
       <Menu>
       <MenuButton  as={Button} variant={"link"} rightIcon={<ChevronDownIcon />}>
@@ -140,19 +142,19 @@ function Navbar() {
 
       </Box>
         
-      </DIV3>
+      </MIDDLENAVDIV>
 
 
-      <DIV2>
+      <DIVLOGO>
         <ICONDIV>
-          <FaRegHeart style={{fontSize:"1.5em"}} />
+          <FaRegHeart style={{fontSize:"1.8em"}} />
           <QTYDIV>0</QTYDIV>
         </ICONDIV>
         <ICONDIV>
-          <HiOutlineShoppingBag style={{fontSize:"1.8rem"}}/>
+          <HiOutlineShoppingBag style={{fontSize:"2rem"}}/>
           <QTYDIV>0</QTYDIV>
         </ICONDIV>
-      </DIV2>
+      </DIVLOGO>
       <SignInAndSignUp isOpen={isOpen} onClose={onClose}/>
     </DIV>
     </>
@@ -160,6 +162,14 @@ function Navbar() {
 }
 
 export default Navbar
+
+const DIVLOGO = styled.div`
+  width: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 
 const ICONDIV = styled.div`
   position: relative;
@@ -222,9 +232,9 @@ const FLAGMAINDIV = styled.div`
 
 
 
-const DIV3 = styled.div`
+const MIDDLENAVDIV = styled.div`
   display: flex;
-  width: 50%;
+  width: 625px;
   justify-content: space-between;
 `
 

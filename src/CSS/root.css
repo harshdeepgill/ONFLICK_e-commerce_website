@@ -17,3 +17,8 @@
     --para: 0.9rem;
     --para-sm: 0.8rem
 }
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}

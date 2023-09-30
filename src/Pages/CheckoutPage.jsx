@@ -43,7 +43,7 @@ function CheckoutPage() {
 
   return (
     <Container>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '35px', width: '75%' }}>
+      <div style={{ display:'flex', flexDirection:'column', gap: '35px', width: '75%' }}>
         <Section>
           <h3 style={{ fontSize: "large", fontWeight: 'bold', paddingBottom: '15px' }}>Review Items and Shipping</h3>
           <ProductInfo>

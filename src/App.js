@@ -9,11 +9,11 @@ import ImageSlider from "./Components/ImageSlider";
 function App() {
   return (
     <div className="App">
-      {/* <PaymentPage /> */}
-      <BrowserRouter>
+      
+      
         <Navbar />
         <AllRoutes />
-      </BrowserRouter>
+      
     </div>
   );
 }

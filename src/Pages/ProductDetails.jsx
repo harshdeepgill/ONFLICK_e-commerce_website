@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getProducts } from '../Redux/productReducer/action';
 import styled from 'styled-components';
 import StarRating from '../Components/StarRating'; // Import the StarRating component
@@ -62,7 +62,7 @@ function ProductDetails() {
     const selectedProduct = products.find((ele) => ele.id === +id);
     setProduct(selectedProduct);
   }, [dispatch, id, products]);
-  console.log(product)
+  //console.log(product)
   return (
     <div>
       {product ? (
@@ -92,7 +92,7 @@ function ProductDetails() {
                         <p>Only <span style={{color:'#ffbb33'}}>12 Items</span> Left!<br/> Don't miss it</p>
                     </div>
                     <div style={{display:'flex', gap:'15px', alignItems:'center'}}>
-                        <button style={{backgroundColor:'#00cc44', color:'white', padding:'10px 35px', borderRadius:'35px'}}>Buy Now</button>
+                    <Link to={`/product_details/${id}/checkout`} style={{ backgroundColor: '#00cc44', color: 'white', padding: '10px 35px', borderRadius: '35px' }}>Buy Now</Link>                        <button style={{backgroundColor:'white', color:'#00cc44', padding:'10px 35px', borderRadius:'35px', border:'1px solid #00cc44'}}>Add to Cart</button>
                         <button style={{backgroundColor:'white', color:'#00cc44', padding:'10px 35px', borderRadius:'35px', border:'1px solid #00cc44'}}>Add to Cart</button>
                     </div>
                 </div>

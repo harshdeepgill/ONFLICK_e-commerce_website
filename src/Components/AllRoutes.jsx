@@ -16,7 +16,6 @@ import CheckoutPage from '../Pages/CheckoutPage';
 
 
 
-
 const AllRoutes = () => {
   return (
     <div>

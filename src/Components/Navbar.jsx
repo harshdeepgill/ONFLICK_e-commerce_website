@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardBody, Text, Input,Link as Clink,  InputGroup, InputRightElement, Menu, MenuButton, Heading, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {styled} from "styled-components";
 import {ChevronDownIcon, CloseIcon, SearchIcon} from "@chakra-ui/icons";
 import NavCatCard from './NavCatCard';
@@ -14,11 +14,12 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import Logo from './Logo';
 import { LOGIN_FAILURE, LOGIN_SUCSESS, SIGNOUT } from '../Redux/AuthReducer/actionType';
 import { login } from '../Redux/AuthReducer/action';
+import SimpleTextCard from './Cards/SimpleTextCard';
 
 
-const categoryData = [
+export const categoryData = [
   {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FHeadphoneCat.png?alt=media&token=26a8b23d-1724-4fdb-ae33-28f7f8e5a189&_gl=1*yrtok1*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTkwNDEyNS4yMi4xLjE2OTU5MDQ0NTYuNjAuMC4w",
-  text: "Headphone"
+  text: "Headphones"
   },
   {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FBagsCat.png?alt=media&token=ed0d203f-f84b-4904-9a6c-e91c53ce8df0&_gl=1*8pq0s7*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTkwNDEyNS4yMi4xLjE2OTU5MDQ0ODcuMjkuMC4w",
   text: "Bags"
@@ -46,7 +47,8 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState();
   const dispatch = useDispatch();
   const newFunc = useDebounce(1000,dispatch);
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   const {isLoading,isError, products} = useSelector((store)=> {
     return {
@@ -175,7 +177,7 @@ function Navbar() {
 
       <ANIMATEDIV  focus={focus}>
           <InputGroup alignItems={"center"}>
-            <Input value={searchInput} border={"1px solid black"} placeholder='Search Products'  _hover={{border:"2px solid black"}} borderRadius={0} w={"100%"} h={"30px"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
+            <Input value={searchInput} border={"1px solid black"} placeholder='Search Products' _focus={{border:"1px solid black"}}  _hover={{border:"1px solid black"}} borderRadius={0} w={"100%"} h={"30px"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
             <InputRightElement onClick={handleCloseSearch} backgroundColor={"black"} color= "#FFFFFF" h={"30px"}>
               {!focus? <SearchIcon  boxSize={3}/>: <CloseIcon  boxSize={3}/> }
             </InputRightElement>
@@ -197,6 +199,23 @@ function Navbar() {
       <DIVLOGO>
         <ICONDIV style={{marginLeft:"25px"}}>
           <FaRegHeart style={{fontSize:"1.5em"}} />
+          {
+            !isAuth?
+            <HOVERINGDIV>
+              <Text>Unlock Your Wishlist! Sign In to Your Dreams.</Text>
+              <SimpleTextCard OnClick={onOpen} p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"SIGN IN"}/>
+            </HOVERINGDIV>
+            : wishlist.length == 0?
+            <HOVERINGDIV>
+              <Text >Don't Leave It Empty! Start Wishing Now.</Text>
+              <SimpleTextCard OnClick={()=>{navigate("/ProductList")}} p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"PRODUCTS"}/>
+            </HOVERINGDIV>
+            :
+            <HOVERINGDIV>
+              <Text>Add Products</Text>
+              <SimpleTextCard text={"PRODUCTS"}/>
+            </HOVERINGDIV>
+          }
           <QTYDIV num={wishlist.length}>{wishlist.length}</QTYDIV>
         </ICONDIV>
         <ICONDIV>
@@ -212,6 +231,36 @@ function Navbar() {
 
 export default Navbar
 
+
+const ICONDIV = styled.div`
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`
+
+const HOVERINGDIV = styled.div`
+  min-width: 380px;
+  min-height: 145px;
+  background-color: white;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: 1000ms display ease-in-out;
+
+
+  ${ICONDIV}:hover &{
+
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
 const HIDEANDSEEK = styled.div`
   display: ${(props) => (props.focus? "none":"block")};
   transition: display 100ms;
@@ -224,6 +273,7 @@ const ANIMATEDIV = styled.div`
 `
 
 const DIVLOGO = styled.div`
+  height: 50px;
   width: 125px;
   display: flex;
   align-items: center;
@@ -231,9 +281,6 @@ const DIVLOGO = styled.div`
 `
 
 
-const ICONDIV = styled.div`
-  position: relative;
-`
 
 const QTYDIV = styled.div`
   width: 15px;

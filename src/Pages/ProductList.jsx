@@ -1,213 +1,260 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../Redux/productReducer/action";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-// import StarRating from "../Components/StarRating";
+import { categoryData } from "../Components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCart from "../Components/ProductCart";
-import { useSearchParams } from "react-router-dom";
+import { getProducts } from "../Redux/productReducer/action";
+import { Flex, Heading, Text } from "@chakra-ui/react";
+import { ChevronDownIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-
-
-export const ProductList = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((store) => store.productReducer.products);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const itemsPerPage = 6;
-  const [currentPage, setCurrentPage] = useState(1);
-
+const ProductList = () => {
+  const [maxPrice, setMaxPrice] = useState(1000);
   const [searchParams, setSearchParams] = useSearchParams();
+  
+  const products = useSelector(store => store.productReducer.products);
+  const dispatch = useDispatch();
+  
+  const [category, setCategory] =  useState( searchParams.getAll("category") || []);
+  const [order, setOrder] = useState(searchParams.get("order") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "");
+
+  const [paging, setPaging] = useState(2);
+
+
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    setPaging(2);
+    let parameter;
+    if(sort != ""){
+      setSearchParams({category, order,sort})
+      parameter = {
+        category,
+        _order: order,
+        _sort: sort,
+        _limit:6,
+        _page:1
+      }
+    }else{
+      setSearchParams({category})
+      parameter = {
+        category,
+        _limit: 6,
+        _page:1
 
-  useEffect(() => {
-    if (selectedCategory === "All") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(
-        (product) => product.category === selectedCategory
-      );
-      setFilteredProducts(filtered);
+      }
     }
-    setCurrentPage(1); 
-    const params = new URLSearchParams();
-    params.set("category", selectedCategory);
-    params.set("page", currentPage.toString());
-    window.history.pushState({}, "", `?${params.toString()}`);
-  }, [products, selectedCategory]);
+    dispatch(getProducts(parameter));
+  },[category, order, sort])
 
-  
-  const handleFilter = (category) => {
-    setSelectedCategory(category);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    setCategory(
+      isChecked
+        ? [...category, value]
+        : category.filter((item) => item !== value)
+    );
   };
 
-  
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-
-  
-  const nextPage = () => {
-    if (currentPage < Math.ceil(filteredProducts.length / itemsPerPage)) {
-      setCurrentPage(currentPage + 1);
+  const handleSort = (e) => {
+    const temp = e.target.value;
+    const arr = temp.split(",");
+    if(arr[0] == "rating"){
+      setOrder("desc")
+      setSort("rating");
+    }else if(arr[0] == "price"){
+      setOrder(arr[1]);
+      setSort("price")
+    }else{
+      setOrder("");
+      setSort("");
     }
-  };
+  }
 
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  const handleFilterClose = (index) => {
+    let newCategory = [...category];
+    newCategory.splice(index,1);
+    setCategory(newCategory);
+  }
+
+  const fetchNewData = () => {
+    let parameter;
+    if(sort != ""){
+      setSearchParams({category, order,sort})
+      parameter = {
+        category,
+        _order: order,
+        _sort: sort,
+        _limit:6,
+        _page: paging
+      }
+    }else{
+      setSearchParams({category})
+      parameter = {
+        category,
+        _limit: 6,
+        _page:paging
+
+      }
     }
-  };
+    dispatch(getProducts(parameter));
+    setPaging(prev => prev+1)
+  }
+
 
   return (
     <div>
-      <div style={{ display: "flex" }}>
-        <Sidebar>
-          <FilterTitle>Filters</FilterTitle>
-          <FilterOption onClick={() => handleFilter("All")}>
-            All Products
-          </FilterOption>
-          <FilterOption onClick={() => handleFilter("Furniture")}>
-            Furniture
-          </FilterOption>
-          <FilterOption onClick={() => handleFilter("Headphones")}>
-            Headphones
-          </FilterOption>
-          <FilterOption onClick={() => handleFilter("Shoes")}>
-            Shoes
-          </FilterOption>
-          <FilterOption onClick={() => handleFilter("Bags")}>Bags</FilterOption>
-          <FilterOption onClick={() => handleFilter("Laptops")}>
-            Laptops
-          </FilterOption>
-          <FilterOption onClick={() => handleFilter("Books")}>
-            Books
-          </FilterOption>
-        </Sidebar>
-
-        <ProductListContainer>
-          {paginatedProducts.map((el) => (
-            <ProductCart {...el}/>
+      <TOPDIV>
+        <div style={{display:"flex", justifyContent:"space-between", paddingRight:"15%"}}>
+          <Heading p={0} as={"h6"} size={"s"}>Filter</Heading>
+          {category.length> 0 && <Heading cursor={"pointer"} onClick={()=>{setCategory([])}} color={"var(--primary1)"} p={0} mt={"7px"} as={"h6"} size={"xs"}>CLEAR FILTER</Heading>}
+          
+        </div>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"space-between"}}>
+        <div style={{display:"flex", gap:"4px"}}>
+          {category?.map((el,index) => <Flex key={index} p={"0 6px 0 12px"} borderRadius={"30px"} border={"1px solid var(--para-text)"} alignItems={"center"} color={"var(--para-text)"} gap={"5px"}><Text mb={"3px"}>{el}</Text><SmallCloseIcon cursor={"pointer"} onClick={()=>{handleFilterClose(index)}}/></Flex>)}
+        </div>
+        <SELECTDIV>
+          <select onChange={handleSort} name="price">
+              <option selected={order == ""} value={["",""]}>Recommended</option>
+              <option selected={order == "asc" && sort == "price"} value={["price","asc"]} >Low to High</option>
+              <option selected={order == "desc"} value={["price","desc"]} >High to Low</option>
+              <option selected={order == "desc" && sort == "rating"} value={["rating","asc"]} >Rating</option>
+          </select>
+          <ICONDIV>
+            <ChevronDownIcon w={5} h={5}/>
+          </ICONDIV>
+        </SELECTDIV>
+        </div>
+      </TOPDIV>
+    <PRODUCTS>
+      <div className="left">
+        <div className="filterItem">
+          <h2>Product Categories</h2>
+          {categoryData?.map((item,index) => (
+            <div className="inputItem" key={index}>
+              <input
+                type="checkbox"
+                id={item.text}
+                value={item.text}
+                checked={category.includes(item.text)}
+                onChange={handleChange}
+              />
+              <label htmlFor={item.text}>{item.text}</label>
+            </div>
           ))}
-        </ProductListContainer>
+        </div>
+        <div className="filterItem">
+          <h2>Filter by price</h2>
+          <div className="inputItem">
+            <span>0</span>
+            <input
+              type="range"
+              min={0}
+              max={1000}
+              onChange={(e) => setMaxPrice(e.target.value)}
+            />
+            <span>{maxPrice}</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <PaginationControls>
-          <button onClick={prevPage} disabled={currentPage === 1}>
-            Previous Page
-          </button>
-          <span>Page {currentPage}</span>
-          <button
-            onClick={nextPage}
-            disabled={
-              currentPage === Math.ceil(filteredProducts.length / itemsPerPage)
-            }
-          >
-            Next Page
-          </button>
-        </PaginationControls>
-      </div>
+
+
+      <InfiniteScroll style={{marginTop:"30px", display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"20px"}}
+      dataLength={products.length}
+      next={fetchNewData}
+      >
+        {products?.map(el => <ProductCart key={el.id} {...el}/>)}
+      </InfiniteScroll>
+    </PRODUCTS>
     </div>
   );
 };
-const ProductListContainer = styled.div`
+
+export  {ProductList};
+
+const PRODUCTS = styled.div`
+  padding: 0 4% 30px 4%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+  .left {
+    position: sticky;
+    padding-top: 30px;
+    height: 90vh;
+    top: 50px;
+    margin-right: 30px;
+    border-right: 1px solid #cdccc7;
+
+    .filterItem{
+      margin-bottom: 30px;
+
+      h2{
+        font-weight: 400;
+        margin-bottom: 20px;
+      }
+
+      .inputItem{
+        margin-bottom: 10px;
+        label{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+`
+const RIGHT = styled.div`
+margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: 20px;
-  padding: 0 2%;
-`;
+`
 
+const TOPDIV = styled.div`
+padding: 0 4%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 40px;
+  align-items: center;
+  border-bottom: 1px solid #cdccc7;
+`
 
-
-
-const Sidebar = styled.div`
-  width: 250px;
-  background-color: #e2e2e2;
-  padding: 10px;
-  border-radius: 10px;
-`;
-
-const FilterTitle = styled.p`
-  font-weight: bold;
-`;
-
-const FilterOption = styled.div`
-  margin-top: 10px;
-  cursor: pointer;
-`;
-const PaginationControls = styled.div`
+const SELECTDIV = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  position: relative;
+  min-width: 250px;
+  height: 30px;
+  border: 1px solid var(--para-text);
+  border-radius: 0;
 
-  button {
-    margin: 0 10px;
-    padding: 5px 10px;
-    background-color: #00cc44;
-    color: white;
+  
+
+  select{
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    appearance: none;
+    padding: 0 30px 0 15px;
+    width: 100%;
+    color: var(--para-text);
+    &:focus{
+    border: none;
   }
-`;
+  }
 
-{/* <ProductCardContainer key={el.id}>
-              <ProductImage src={el.image} alt="Product" />
-              <ProductTitle>{el.title}</ProductTitle>
-              <ProductPrice>${el.price}</ProductPrice>
-              <ProductCategory>Category: {el.category}</ProductCategory>
-              <RatingContainer>
-                <StarRating rating={el.rating} />
-                <p>({el.numVotes})</p>
-              </RatingContainer>
-              <ProductDescription>{el.description}</ProductDescription>
-              <AddToCartButton>Add to cart</AddToCartButton>
-            </ProductCardContainer> */}
-            // const ProductCardContainer = styled.div`
-//   width: 300px;
-//   background-color: #f2f2f2;
-//   border-radius: 25px;
-//   margin: 10px;
-//   padding: 10px;
-//   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-// `;
-
-// const ProductImage = styled.img`
-//   width: 100%;
-//   height: 250px;
-//   object-fit: cover;
-// `;
-
-// const ProductTitle = styled.p`
-//   font-size: large;
-//   font-weight: bold;
-// `;
-
-// const ProductPrice = styled.p`
-//   font-size: large;
-//   font-weight: bold;
-// `;
-
-// const ProductCategory = styled.p`
-//   margin-left: 10px;
-// `;
-
-// const RatingContainer = styled.div`
-//   padding: 10px;
-//   display: flex;
-//   gap: 10px;
-//   align-items: center;
-// `;
-
-// const AddToCartButton = styled.button`
-//   background-color: #00cc44;
-//   color: white;
-//   padding: 5px 25px;
-//   border-radius: 25px;
-// `;
-
-// const ProductDescription = styled.p`
-//   margin-top: 10px;
-// `;
+  `
+  const ICONDIV = styled.div`
+    width: 35px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    position: absolute;
+    right: 0;
+  `
+  

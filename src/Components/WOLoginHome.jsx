@@ -4,8 +4,6 @@ import ImageSlider from './ImageSlider';
 import styled from 'styled-components';
 import { Flex, Heading , Text} from '@chakra-ui/react';
 import CardSwitcher from './CardSwitcher/CardSwitcher';
-import ProductCart from './ProductCart';
-import PaymentPage from '../Pages/PaymentPage';
 import SimpleTextCard from './Cards/SimpleTextCard';
 
 const urls = [
@@ -105,7 +103,8 @@ const dummyData = [
   }
 ]
 
-const productTextSwitcher = ["Bookshelf", "Wardrobe", "Hiking Boots", "Drawers", "Leather Sofa", "Recliner Chair","Bluetooth Earbuds", "Gaming Headset"]
+const productTextSwitcher = ["Bookshelf", "Wardrobe", "Hiking Boots", "Drawers", "Leather Sofa", "Recliner Chair","Bluetooth Earbuds", "Gaming Headset"];
+const productIdSwitcher = [3,7,23,5,2,9,13,14];
 
 const WOLoginHome = () => {
   const [color, setColor] = useState(false);
@@ -152,11 +151,10 @@ const WOLoginHome = () => {
           <Heading color={color?"#ef1b22":"black"}>TOP RATED PRODUCTS</Heading>
         </div>
       </TRPDIV>
-      <CardSwitcher center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
-        {productTextSwitcher.map((el,index) => <SimpleTextCard key={index} text={el}/>)}
+      <CardSwitcher aboveShift={"45px"} center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
+        {productTextSwitcher.map((el,index) => <SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/>)}
       </CardSwitcher>
     </div>
-
     </DIV>
   )
 }

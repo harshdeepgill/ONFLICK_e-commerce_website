@@ -1,0 +1,8 @@
+.social-icon {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}

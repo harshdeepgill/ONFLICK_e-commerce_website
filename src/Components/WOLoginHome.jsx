@@ -156,7 +156,6 @@ const WOLoginHome = () => {
         {productTextSwitcher.map((el,index) => <SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/>)}
       </CardSwitcher>
     </div>
-    <Footer/>
     </DIV>
   )
 }

@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function SideMenu() {
   const location = useLocation();
-  const [selectedKeys, setSelectedKeys] = useState("/");
+  const [selectedKeys, setSelectedKeys] = useState("/admin");
 
   useEffect(() => {
     const pathName = location.pathname;
@@ -32,21 +32,21 @@ function SideMenu() {
           {
             label: "Dashbaord",
             icon: <AppstoreOutlined />,
-            key: "/",
+            key: "/admin",
           },
           {
             label: "Inventory",
-            key: "/inventory",
+            key: "/admin/inventory",
             icon: <ShopOutlined />,
           },
           {
             label: "Orders",
-            key: "/orders",
+            key: "/admin/orders",
             icon: <ShoppingCartOutlined />,
           },
           {
             label: "Customers",
-            key: "/customers",
+            key: "/admin/customers",
             icon: <UserOutlined />,
           },
         ]}

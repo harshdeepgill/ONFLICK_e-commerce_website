@@ -52,7 +52,13 @@ let usersURL = "https://woozy-luck-thunbergia.glitch.me";
     })
   };
  
-  
+  export const getSingleProduct=(id)=>(dispatch)=>{
+    return axios.get(`${url}/${id}`)
+  }
+  export const updatedSingleProduct=(id,data)=>(dispatch)=>{
+    console.log(id,data)
+    return axios.patch(`${url}/${id}`,data)
+  }
 
   export const getOrders = () => {
     return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
@@ -61,3 +67,7 @@ let usersURL = "https://woozy-luck-thunbergia.glitch.me";
   export const getRevenue = () => {
     return fetch("https://dummyjson.com/carts").then((res) => res.json());
   };
+
+
+
+  

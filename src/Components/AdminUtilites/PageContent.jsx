@@ -4,7 +4,7 @@ import AdminAllRoutes from './AdminAllRoutes'
 const PageContent = () => {
   return (
     <div className="PageContent">
-      <AdminAllRoutes />
+    <AdminAllRoutes/>
     </div>
   )
 }

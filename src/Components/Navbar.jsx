@@ -14,6 +14,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import Logo from './Logo';
 import { LOGIN_FAILURE, LOGIN_SUCSESS, SIGNOUT } from '../Redux/AuthReducer/actionType';
 import { login } from '../Redux/AuthReducer/action';
+import SimpleTextCard from './Cards/SimpleTextCard';
 
 
 const categoryData = [
@@ -175,7 +176,7 @@ function Navbar() {
 
       <ANIMATEDIV  focus={focus}>
           <InputGroup alignItems={"center"}>
-            <Input value={searchInput} border={"1px solid black"} placeholder='Search Products'  _hover={{border:"2px solid black"}} borderRadius={0} w={"100%"} h={"30px"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
+            <Input value={searchInput} border={"1px solid black"} placeholder='Search Products' _focus={{border:"1px solid black"}}  _hover={{border:"1px solid black"}} borderRadius={0} w={"100%"} h={"30px"} onChange={handleSearch} onFocus={hanldeSearchFocus}/>
             <InputRightElement onClick={handleCloseSearch} backgroundColor={"black"} color= "#FFFFFF" h={"30px"}>
               {!focus? <SearchIcon  boxSize={3}/>: <CloseIcon  boxSize={3}/> }
             </InputRightElement>
@@ -197,6 +198,23 @@ function Navbar() {
       <DIVLOGO>
         <ICONDIV style={{marginLeft:"25px"}}>
           <FaRegHeart style={{fontSize:"1.5em"}} />
+          {
+            !isAuth?
+            <HOVERINGDIV>
+              <Text>Unlock Your Wishlist: Sign In to Your Dreams.</Text>
+              <SimpleTextCard p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"SIGN IN"}/>
+            </HOVERINGDIV>
+            : wishlist.length == 0?
+            <HOVERINGDIV>
+              <Text >Don't Leave It Empty! Start Wishing Now.</Text>
+              <SimpleTextCard p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"PRODUCTS"}/>
+            </HOVERINGDIV>
+            :
+            <HOVERINGDIV>
+              <Text>Add Products</Text>
+              <SimpleTextCard text={"PRODUCTS"}/>
+            </HOVERINGDIV>
+          }
           <QTYDIV num={wishlist.length}>{wishlist.length}</QTYDIV>
         </ICONDIV>
         <ICONDIV>
@@ -212,6 +230,36 @@ function Navbar() {
 
 export default Navbar
 
+
+const ICONDIV = styled.div`
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`
+
+const HOVERINGDIV = styled.div`
+  min-width: 350px;
+  min-height: 135px;
+  background-color: white;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: 1000ms display ease-in-out;
+
+
+  ${ICONDIV}:hover &{
+
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+  }
+`
+
 const HIDEANDSEEK = styled.div`
   display: ${(props) => (props.focus? "none":"block")};
   transition: display 100ms;
@@ -224,6 +272,7 @@ const ANIMATEDIV = styled.div`
 `
 
 const DIVLOGO = styled.div`
+  height: 50px;
   width: 125px;
   display: flex;
   align-items: center;
@@ -231,9 +280,6 @@ const DIVLOGO = styled.div`
 `
 
 
-const ICONDIV = styled.div`
-  position: relative;
-`
 
 const QTYDIV = styled.div`
   width: 15px;

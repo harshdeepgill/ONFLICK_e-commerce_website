@@ -28,6 +28,7 @@ const AllRoutes = () => {
         <Route path='/product_details/:id/checkout/payment' element={<PaymentPage/>} />
 
         <Route path='/Paymentpage' element={<PaymentPage/>} />
+
         <Route path='/login' element={<LoginPage/>} />
         <Route path="/wishlist" element={<ProtectedRoute><Wishlist/></ProtectedRoute>}/>
          <Route path='/ProductList' element={<ProductList/>} />

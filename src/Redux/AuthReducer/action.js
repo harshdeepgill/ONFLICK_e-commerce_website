@@ -17,8 +17,12 @@ export const login = (user) => (dispatch) => {
 export const register = (user) => (dispatch) =>{
         dispatch({type:LOGIN_REQUEST});
       
+// <<<<<<< fp10_130_day_4
+//    return axios.post(`${URL}/users`,{...user,image:"",cart:[],orders:[]}).then((res)=>{
+// =======
    return axios.post(`${URL}/users`,user)
   //  .then((res)=>{
+
       
   //     dispatch({type:SIGNUP_SUCCESS});
   //   }).catch((err)=>{

@@ -22,7 +22,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FaCheck } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Redux/productReducer/action";
 
 const PaymentPage = () => {
   const toast = useToast();
@@ -37,6 +39,20 @@ const PaymentPage = () => {
   const [status, setStatus] = useState(false);
   const [upi, setUpi] = useState("");
   const [bill, setBill] = useState(0);
+
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { products, isLoading } = useSelector((store) => ({
+    products: store.productReducer.products,
+    isLoading: store.productReducer.isLoading,
+  }));
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    dispatch(getProducts());
+    const selectedProduct = products.find((ele) => ele.id === +id);
+    setProduct(selectedProduct);
+  }, [dispatch, id, products]);
 
   function postorders() {
     localStorage.setItem("cartItems", JSON.stringify([]));
@@ -136,7 +152,7 @@ const PaymentPage = () => {
       <Box w="50%" m="30px">
         <Box>
           <Heading as="h2" size="lg" mb="10px" color="pink.500">
-            Total Amount : {bill}
+            Total Amount : {product.price}
           </Heading>
         </Box>
         <form onSubmit={handleSubmitForm}>

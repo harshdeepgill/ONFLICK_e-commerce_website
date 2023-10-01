@@ -32,6 +32,10 @@ export const ProductList = () => {
       setFilteredProducts(filtered);
     }
     setCurrentPage(1); 
+    const params = new URLSearchParams();
+    params.set("category", selectedCategory);
+    params.set("page", currentPage.toString());
+    window.history.pushState({}, "", `?${params.toString()}`);
   }, [products, selectedCategory]);
 
   

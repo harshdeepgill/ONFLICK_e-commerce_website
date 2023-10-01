@@ -101,8 +101,35 @@ const Footer = () => {
               </Button>
             </form>
           </Box>
+          <Box width="100%" display="flex" margin={10} padding={5}>
+            <Text padding={3} className="social-icon hover-effect">
+              <FaFacebookF fontSize="30px" />
+            </Text>
+            <Text padding={3} className="social-icon hover-effect">
+              <FaTwitter fontSize="30px" />
+            </Text>
+            <Text padding={3} className="social-icon hover-effect">
+              <FaInstagram fontSize="30px" />
+            </Text>
+            <Text padding={3} className="social-icon hover-effect">
+              <FaYoutube fontSize="30px" />
+            </Text>
+            <Text padding={3} className="social-icon hover-effect">
+              <FaLinkedinIn fontSize="30px" />
+            </Text>
+          </Box>
+
+          <Box width={{ base: "100%", sm: "100%", md: "40%", lg: "50%"}} padding={5}>
+            <Text textAlign="left">Download The App</Text>
+            <Box display="flex">
+              <Img
+                src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/google-play.png?v=1608620293"
+                alt=""
+              />
+              <Img src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/app-store.png?v=1608620293" />
+            </Box>
+          </Box>
         </Box>
-     
 
         <Grid
           mt={4}
@@ -121,8 +148,8 @@ const Footer = () => {
             </Text>
             <Box
               mt={4}
-              borderRight="1px solid "
-              borderColor="lightgrey"
+              // borderRight="1px solid "
+              // borderColor="lightgrey"
               textAlign="left"
             >
               <Stack>
@@ -136,10 +163,10 @@ const Footer = () => {
                 <Text>Books</Text>
                 <Text>Electronics & Gadget</Text>
                 <Text>Travel Accessories</Text>
-                <Text>Fitness</Text>
+                {/* <Text>Fitness</Text>
                 <Text>Sneakers</Text>
                 <Text>Toys</Text>
-                <Text>Furniture</Text>
+                <Text>Furniture</Text> */}
               </Stack>
             </Box>
           </GridItem>
@@ -149,8 +176,8 @@ const Footer = () => {
             </Text>
             <Box
               mt={10}
-              borderRight="1px solid "
-              borderColor="lightgrey"
+              // borderRight="1px solid "
+              // borderColor="lightgrey"
               textAlign="left"
             >
               <Stack>
@@ -173,8 +200,8 @@ const Footer = () => {
             </Text>
             <Box
               mt={4}
-              borderRight="1px solid "
-              borderColor="lightgrey"
+              // borderRight="1px solid "
+              // borderColor="lightgrey"
               textAlign="left"
             >
               <Stack>
@@ -197,8 +224,8 @@ const Footer = () => {
             <Box
               paddingLeft={4}
               mt={4}
-              borderLeft="1px solid"
-              borderColor="lightgrey"
+              // borderLeft="1px solid"
+              // borderColor="lightgrey"
             >
               <Stack>
                 <Text>About boAt</Text>
@@ -294,23 +321,7 @@ const Footer = () => {
           </TabPanels>
         </Tabs>
       </Box>
-      <Box width="100%" display="flex" border="1px solid lightgrey">
-        <Text padding={3} className="social-icon hover-effect">
-          <FaFacebookF fontSize="30px" />
-        </Text>
-        <Text padding={3} className="social-icon hover-effect">
-          <FaTwitter fontSize="30px" />
-        </Text>
-        <Text padding={3} className="social-icon hover-effect">
-          <FaInstagram fontSize="30px" />
-        </Text>
-        <Text padding={3} className="social-icon hover-effect">
-          <FaYoutube fontSize="30px" />
-        </Text>
-        <Text padding={3} className="social-icon hover-effect">
-          <FaLinkedinIn fontSize="30px" />
-        </Text>
-      </Box>
+
       <Box
         p={2}
         display={{ base: "block", sm: "block", md: "flex", lg: "flex" }}
@@ -318,16 +329,7 @@ const Footer = () => {
         borderBottom="1px solid lightgrey"
         width="100%"
       >
-        <Box width={{ base: "100%", sm: "100%", md: "40%", lg: "30%" }}>
-          <Text textAlign="left">Download The App</Text>
-          <Box display="flex">
-            <Img
-              src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/google-play.png?v=1608620293"
-              alt=""
-            />
-            <Img src="https://cdn.shopify.com/s/files/1/0057/8938/4802/files/app-store.png?v=1608620293" />
-          </Box>
-        </Box>
+        
       </Box>
       <Box>
         <Text p={4} textAlign="left">

@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardBody, Text, Input,Link as Clink,  InputGroup, InputRightElement, Menu, MenuButton, Heading, MenuList, SimpleGrid, Stack, StackDivider, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {styled} from "styled-components";
 import {ChevronDownIcon, CloseIcon, SearchIcon} from "@chakra-ui/icons";
 import NavCatCard from './NavCatCard';
@@ -17,9 +17,9 @@ import { login } from '../Redux/AuthReducer/action';
 import SimpleTextCard from './Cards/SimpleTextCard';
 
 
-const categoryData = [
+export const categoryData = [
   {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FHeadphoneCat.png?alt=media&token=26a8b23d-1724-4fdb-ae33-28f7f8e5a189&_gl=1*yrtok1*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTkwNDEyNS4yMi4xLjE2OTU5MDQ0NTYuNjAuMC4w",
-  text: "Headphone"
+  text: "Headphones"
   },
   {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FBagsCat.png?alt=media&token=ed0d203f-f84b-4904-9a6c-e91c53ce8df0&_gl=1*8pq0s7*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTkwNDEyNS4yMi4xLjE2OTU5MDQ0ODcuMjkuMC4w",
   text: "Bags"
@@ -47,7 +47,8 @@ function Navbar() {
   const [searchInput, setSearchInput] = useState();
   const dispatch = useDispatch();
   const newFunc = useDebounce(1000,dispatch);
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   const {isLoading,isError, products} = useSelector((store)=> {
     return {
@@ -201,13 +202,13 @@ function Navbar() {
           {
             !isAuth?
             <HOVERINGDIV>
-              <Text>Unlock Your Wishlist: Sign In to Your Dreams.</Text>
-              <SimpleTextCard p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"SIGN IN"}/>
+              <Text>Unlock Your Wishlist! Sign In to Your Dreams.</Text>
+              <SimpleTextCard OnClick={onOpen} p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"SIGN IN"}/>
             </HOVERINGDIV>
             : wishlist.length == 0?
             <HOVERINGDIV>
               <Text >Don't Leave It Empty! Start Wishing Now.</Text>
-              <SimpleTextCard p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"PRODUCTS"}/>
+              <SimpleTextCard OnClick={()=>{navigate("/ProductList")}} p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"PRODUCTS"}/>
             </HOVERINGDIV>
             :
             <HOVERINGDIV>
@@ -239,8 +240,8 @@ const ICONDIV = styled.div`
 `
 
 const HOVERINGDIV = styled.div`
-  min-width: 350px;
-  min-height: 135px;
+  min-width: 380px;
+  min-height: 145px;
   background-color: white;
   display: none;
   position: absolute;

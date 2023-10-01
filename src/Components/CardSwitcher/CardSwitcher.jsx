@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-const CardSwitcher = ({children, slideWidth, left = false, right = false,center = false }) => {
+const CardSwitcher = ({children, slideWidth,aboveShift, left = false, right = false,center = false }) => {
   const slider = useRef();
   const [position, setPosition] = useState(0);
   const [forwardState, setForwardState] = useState(true)
@@ -33,8 +33,8 @@ const CardSwitcher = ({children, slideWidth, left = false, right = false,center 
         
       </DIV>
       <DIV2 style={{position: "relative"}}>
-        <BDIV leftS={position} onClick={handleLeft}><ChevronLeftIcon boxSize={10} color={"#696b70"}/></BDIV>
-        <FDIV shift={0.92*window.innerWidth} leftS={forwardState} onClick={handleRight}><ChevronRightIcon boxSize={10} color={"#696b70"}/></FDIV>
+        <BDIV aboveShift={aboveShift} leftS={position} onClick={handleLeft}><ChevronLeftIcon boxSize={10} color={"#696b70"}/></BDIV>
+        <FDIV aboveShift={aboveShift} shift={0.92*window.innerWidth} leftS={forwardState} onClick={handleRight}><ChevronRightIcon boxSize={10} color={"#696b70"}/></FDIV>
       </DIV2>
     </div>
   )
@@ -49,7 +49,7 @@ const DIV = styled.div`
   gap: 20px;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  width: 95%;
+  width: 92%;
   margin: ${(props) => {
     if(props.left){
       return "0 0 0 auto"
@@ -64,7 +64,6 @@ const DIV = styled.div`
 const DIV2 = styled.div`
   width: 100vw;
   height: 0;
-  border: 2px solid red;
   display: flex;
   justify-content: space-between;
   padding: 0 4%;
@@ -73,7 +72,8 @@ const DIV2 = styled.div`
 
 const BDIV = styled.div`
 position: absolute;
-bottom: 80px;
+left: 2%;
+bottom:${(props)=> (props.aboveShift)};
 height: 60px;
     width: 60px;
     border-radius: 50%;
@@ -88,6 +88,7 @@ height: 60px;
 `
 const FDIV = styled.div`
 position: absolute;
+bottom: ${(props)=> (props.aboveShift)};
 left: ${(props)=> (props.shift+"px")}; ;
 height: 60px;
     width: 60px;

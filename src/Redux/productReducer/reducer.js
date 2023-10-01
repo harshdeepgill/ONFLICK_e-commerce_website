@@ -9,7 +9,7 @@ export const reducer = (state=initialState, {type, payload})=>{
         case GET_REQUEST:
             return {...state, isLoading:true}
         case GET_SUCCESS:
-            return {...state, isLoading:false, products:payload}
+            return {...state, isLoading:false, products:[...state.products,...payload]}
         case GET_FAILEAR:
             return {...state, isLoading:false, isError:true}
         default:

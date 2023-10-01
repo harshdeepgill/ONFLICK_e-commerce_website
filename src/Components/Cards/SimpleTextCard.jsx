@@ -2,9 +2,9 @@ import { Heading } from '@chakra-ui/react'
 import React from 'react'
 import styled from 'styled-components'
 
-const SimpleTextCard = ({text, size, as, dims,p}) => {
+const SimpleTextCard = ({text, size, as, dims,p,OnClick}) => {
   return (
-    <div>
+    <div onClick={OnClick}>
         <DIV dims={dims} p={p}>
           <Heading as={as} size={size}>{text}</Heading>
         </DIV>

@@ -14,7 +14,6 @@ import Wishlist from '../Pages/Wishlist';
 
 import CheckoutPage from '../Pages/CheckoutPage';
 
-import { ProductList } from '../Pages/ProductList';
 
 
 const AllRoutes = () => {

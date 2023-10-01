@@ -1,0 +1,18 @@
+input[type="checkbox"]{
+    appearance: none;
+    -webkit-appearance: none;
+    height: 17px;
+    width: 17px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid var(--para-text);
+
+    
+  }
+
+  input[type="checkbox"]::after{
+    content: "";
+    border: solid black;
+    border-width: 0px 7px 7px 0px;
+    margin-left: 10px;
+  }

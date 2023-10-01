@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Flex, Heading , Text} from '@chakra-ui/react';
 import CardSwitcher from './CardSwitcher/CardSwitcher';
 import SimpleTextCard from './Cards/SimpleTextCard';
-import { Footer } from './Footer';
 
 const urls = [
   "https://assets.myntassets.com/f_webp,w_404,c_limit,fl_progressive,dpr_2.0/assets/images/2023/9/16/c8d03b7a-2115-403a-9079-099bb1bc163a1694878389211-Desktop-Phase_1-DK-Main-Banner.jpg",
@@ -152,7 +151,7 @@ const WOLoginHome = () => {
           <Heading color={color?"#ef1b22":"black"}>TOP RATED PRODUCTS</Heading>
         </div>
       </TRPDIV>
-      <CardSwitcher center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
+      <CardSwitcher aboveShift={"45px"} center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
         {productTextSwitcher.map((el,index) => <SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/>)}
       </CardSwitcher>
     </div>

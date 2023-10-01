@@ -141,6 +141,7 @@ const Footer = () => {
             lg: "repeat(5, 1fr)",
           }}
           gap={6}
+         margin={5}
         >
           <GridItem>
             <Text textAlign="left" fontWeight="bold">

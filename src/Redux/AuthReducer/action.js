@@ -17,7 +17,7 @@ export const login = (user) => (dispatch) => {
 export const register= (user) => (dispatch) =>{
         dispatch({type:LOGIN_REQUEST});
       
-   return axios.post(`${URL}/users`,user).then((res)=>{
+   return axios.post(`${URL}/users`,{...user,image:"",cart:[],orders:[]}).then((res)=>{
       
       dispatch({type:SIGNUP_SUCCESS});
     }).catch((err)=>{

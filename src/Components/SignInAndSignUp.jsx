@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Button, Input, FormLabel, FormControl, Box, InputGroup, InputRightElement, useToast } from '@chakra-ui/react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, register } from '../Redux/AuthReducer/action';
 import { LOGIN_FAILURE, LOGIN_SUCSESS } from '../Redux/AuthReducer/actionType';
 import {
@@ -13,7 +13,8 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
-import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+
 
 const intialRegisteredData = { id: "", password: "", name: "" }
 const initialLogin = { id: "", password: "" }
@@ -23,7 +24,8 @@ const initialLogin = { id: "", password: "" }
 
 
 
-const SignInAndSignUp = ({onClose,isOpen}) => {
+const SignInAndSignUp = ({ onClose, isOpen }) => {
+  const { isAuth, isloading, isError } = useSelector((store) => store.authReducer)
 
   const [registerdData, setRegiteredData] = useState(intialRegisteredData);
   const [loginData, setLogin] = useState(initialLogin)
@@ -33,11 +35,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
 
   const dispatch = useDispatch();
   const toast = useToast()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+const nav = useNavigate()
 
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +58,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
         console.log(res.data)
         if (res.data.password === loginData.password) {
           dispatch({ type: LOGIN_SUCSESS })
-         
+
           toast({
             title: "Sign In Successfully!",
             position: "top-center",
@@ -68,10 +66,11 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
             duration: 2000,
             isClosable: true,
           });
-          
+          setLogin(initialLogin)
+
         }
         else {
-          
+
           toast({
             title: "Password do not match",
             position: "top-center",
@@ -79,12 +78,12 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
             duration: 2000,
             isClosable: true,
           })
-         // console.log("not password matched")
+          // console.log("not password matched")
         }
       }).catch((error) => {
         //console.log(error)
         //user not
-        dispatch({type: LOGIN_FAILURE}) 
+        dispatch({ type: LOGIN_FAILURE })
         toast({
           title: "Account Not Found",
           description: "Create a new account",
@@ -108,7 +107,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
         duration: 2000,
         isClosable: true,
       });
-      document.getElementById("register").reset();
+      setRegiteredData(intialRegisteredData)
     })
       .catch(() => {
         toast({
@@ -134,112 +133,117 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
           backdropInvert='1%'
           backdropBlur='2px'
         />
-       
-          <ModalContent bg={"#f5f6f6"} >
-            <ModalBody>
+
+        <ModalContent bg={"#f5f6f6"} >
+          <ModalBody>
 
 
-              <Tabs variant="soft-rounded" id='tab'  >
+            <Tabs variant="soft-rounded" id='tab'  >
 
-                <TabList display={"flex"} justifyContent={"center"}>
-                  <Tab>Login</Tab>
-                  <Tab>Signup</Tab>
-                </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    <FormControl action="" width="100%" margin="auto">
-                      < FormLabel>Enter Email</ FormLabel>
+              <TabList display={"flex"} justifyContent={"center"}>
+                <Tab>Login</Tab>
+                <Tab>Signup</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <FormControl action="" width="100%" margin="auto">
+                    < FormLabel>Enter Email</ FormLabel>
+                    <Input
+                      type="text"
+                      placeholder='Enter Email'
+                      name='id'
+                      value={loginData.id}
+                      onChange={handleLoginChange}
+                      required
+                    />
+                    < FormLabel>Enter Password</ FormLabel>
+
+                    <InputGroup size='md'>
                       <Input
-                        type="text"
-                        placeholder='Enter Email'
-                        name='id'
-                        value={loginData.id}
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        placeholder='Enter password'
+                        name='password'
+                        value={loginData.password}
                         onChange={handleLoginChange}
+                        required
                       />
-                      < FormLabel>Enter Password</ FormLabel>
-
-                      <InputGroup size='md'>
-                        <Input
-                          pr='4.5rem'
-                          type={show ? 'text' : 'password'}
-                          placeholder='Enter password'
-                          name='password'
-                          value={loginData.password}
-                          onChange={handleLoginChange}
-                        />
-                        <InputRightElement width='4.5rem'>
-                          <Button h='1.75rem' size='xs' className='hide' onClick={handleClick}>
-                            {show ? 'Hide' : 'Show'}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
+                      <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='xs' className='hide' onClick={handleClick}>
+                          {show ? 'Hide' : 'Show'}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
 
 
-                      {/* <Input type="submit" /> */}
-                      <Box display={'flex'} justifyContent={'center'} mt={'20px'}>
-                        <ModalFooter>
-                          <Button colorScheme='linkedin' width="60px" mr={3} onClick={onClose}>
-                            Close
-                          </Button>
+                    {/* <Input type="submit" /> */}
+                    <Box display={'flex'} justifyContent={'center'} mt={'20px'}>
+                      <ModalFooter>
+                        <Button colorScheme='linkedin' width="60px" mr={3} onClick={onClose}>
+                          Close
+                        </Button>
 
 
-                          <Button type='submit' colorScheme='linkedin' width="60px" onClick={loginSubmit}>Login</Button>
-                        </ModalFooter>
-                      </Box>
-                    </FormControl>
-                  </TabPanel>
-                  <TabPanel>
-                    <FormControl  id='register'>
-                      < FormLabel>Enter Name</ FormLabel>
-                      <Input type="text"
-                        placeholder='Name'
-                        name='name'
-                        value={registerdData.name}
+                        <Button type='submit' colorScheme='linkedin' width="60px" onClick={loginSubmit}>Login</Button>
+                      </ModalFooter>
+                    </Box>
+                  </FormControl>
+                </TabPanel>
+                <TabPanel>
+                  <FormControl id='register'>
+                    < FormLabel>Enter Name</ FormLabel>
+                    <Input type="text"
+                      placeholder='Name'
+                      name='name'
+                      value={registerdData.name}
+                      onChange={handleRegisterChange}
+                      required
+                    />
+                    < FormLabel>Enter Email</ FormLabel>
+                    <Input type="text"
+                      placeholder='Enter Email'
+                      name='id'
+                      value={registerdData.id}
+                      onChange={handleRegisterChange}
+                      required
+                    />
+                    < FormLabel>Create Password</ FormLabel>
+                    <InputGroup size='md'>
+                      <Input
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        placeholder='Enter password'
+                        name='password'
+                        value={registerdData.password}
                         onChange={handleRegisterChange}
+                        required
                       />
-                      < FormLabel>Enter Email</ FormLabel>
-                      <Input type="text"
-                        placeholder='Enter Email'
-                        name='id'
-                        value={registerdData.id}
-                        onChange={handleRegisterChange}
-                      />
-                      < FormLabel>Create Password</ FormLabel>
-                      <InputGroup size='md'>
-                        <Input
-                          pr='4.5rem'
-                          type={show ? 'text' : 'password'}
-                          placeholder='Enter password'
-                          name='password'
-                          value={registerdData.password}
-                          onChange={handleRegisterChange}
-                        />
-                        <InputRightElement width='4.5rem'>
-                          <Button h='1.75rem' size='xs' className='hide' onClick={handleClick}>
-                            {show ? 'Hide' : 'Show'}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                      {/* <Input type="submit" /> */}
-                      <Box display={'flex'} justifyContent={'center'} mt={'20px'}
-                      // fontSize={["sm", "md", "lg", "xl"]}
-                      >
-                        <ModalFooter>
-                          <Button colorScheme='linkedin' width={"70px"} mr={3} onClick={onClose}>
-                            Close
-                          </Button>
-                          <Button colorScheme='linkedin' width={"70px"} onClick={registerSubmit} type='submit'>Sigin Up</Button>
+                      <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='xs' className='hide' onClick={handleClick}>
+                          {show ? 'Hide' : 'Show'}
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
+                    {/* <Input type="submit" /> */}
+                    <Box display={'flex'} justifyContent={'center'} mt={'20px'}
+                    // fontSize={["sm", "md", "lg", "xl"]}
+                    >
+                     <ModalFooter>
+                        <Button colorScheme='linkedin' width={"70px"} mr={3} onClick={onClose}>
+                          Close
+                        </Button>
+                        <Button colorScheme='linkedin' width={"70px"} onClick={registerSubmit} type='submit'>Sigin Up</Button>
 
-                        </ModalFooter>
-                      </Box>
-                    </FormControl>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
+                      </ModalFooter> 
+                    </Box>
+                  </FormControl>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
 
-            </ModalBody>
-          </ModalContent>
-     
+          </ModalBody>
+        </ModalContent>
+
       </Modal>
     </DIV>
 
@@ -248,6 +252,44 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
 
 export default SignInAndSignUp
 const DIV = styled.div`
+/* Loading css */
+svg {
+ width: 3.25em;
+ transform-origin: center;
+ animation: rotate4 2s linear infinite;
+}
+
+circle {
+ fill: none;
+ stroke: hsl(214, 97%, 59%);
+ stroke-width: 2;
+ stroke-dasharray: 1, 200;
+ stroke-dashoffset: 0;
+ stroke-linecap: round;
+ animation: dash4 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate4 {
+ 100% {
+  transform: rotate(360deg);
+ }
+}
+
+@keyframes dash4 {
+ 0% {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+ }
+
+ 50% {
+  stroke-dasharray: 90, 200;
+  stroke-dashoffset: -35px;
+ }
+
+ 100% {
+  stroke-dashoffset: -125px;
+ }
+}
 
 
 

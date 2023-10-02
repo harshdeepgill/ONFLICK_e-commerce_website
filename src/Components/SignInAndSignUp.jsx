@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { BsEnvelopeAt, BsEye, BsEyeSlash, BsPerson } from "react-icons/bs";
 import Logo from './Logo';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const intialRegisteredData = { id: "", password: "", name: "",wishlist:[], cart:[], orders:[], image:""}
 const initialLogin = { id: "", password: "" }
@@ -23,7 +23,8 @@ const initialLogin = { id: "", password: "" }
 const SignInAndSignUp = ({onClose,isOpen}) => {
 
   const [registerdData, setRegiteredData] = useState(intialRegisteredData);
-  const [loginData, setLogin] = useState(initialLogin)
+  const [loginData, setLogin] = useState(initialLogin);
+  const searchParams = useParams();
 
   const [show, setShow] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
@@ -44,6 +45,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
     const { name, value } = e.target;
     setLogin({ ...loginData, [name]: value })
   }
+  
 
   const loginSubmit = () => {
 
@@ -60,7 +62,8 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
             duration: 2000,
             isClosable: true,
           });
-          nvigate(-1)
+          
+          onClose();
           
         }
         else {
@@ -103,6 +106,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
         isClosable: true,
       });
       setRegiteredData(intialRegisteredData);
+      setTabIndex(0);
     })
       .catch((err) => {
         console.log(err)

@@ -1,64 +1,80 @@
 import React, { useState } from 'react'
-import Header from '../Components/AdminUtilites/Header'
 import SideMenu from '../Components/AdminUtilites/SideMenu'
 import PageContent from '../Components/AdminUtilites/PageContent'
 import styled from 'styled-components'
 
 
 
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+  } from '@ant-design/icons';
+  import {  Button, Layout, Menu,  theme } from 'antd';
+import AdminNavbar from '../Components/AdminUtilites/AdminNavbar';
+  const { Header, Sider, Content } = Layout;
 
 
 
 
 const AdminPage = () => {
-   
-   
-  
+
+    //const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    // const handleHamburgerClick = () => {
+    //   setIsSidebarOpen(!isSidebarOpen);
+    // };
+
+    const [collapsed, setCollapsed] = useState(false);
+    const {
+      token: { colorBgContainer },
+    } = theme.useToken();
+    
+    const handleHamburgerClick = () => {
+        setCollapsed(!collapsed);
+    };
+
     return (
-      <DIV>
-
-        <Header/>
-        <div className="SideMenuAndPageContent">
-       <SideMenu/>
-       <PageContent/>
-      </div>
-      </DIV>
-
-    )
+        <Layout>
+        <Header style={{padding: 0,background: colorBgContainer,}} >
+          <AdminNavbar handleHamburgerClick={handleHamburgerClick} collapsed={collapsed}/>
+        </Header>
+      <Layout>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
+        <SideMenu isOpen={collapsed} />
+      </Sider>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+       <PageContent />
+        </Content>
+      </Layout>
+    </Layout>
+)
 }
 
 export default AdminPage
 
-const DIV = styled.div`
+// const DIV = styled.div`
+//   .SideMenuAndPageContent{
+//       display:flex;
+//       .PageContent{
+//         margin: 20px;
+//     }
+//   }
+
   
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-
-.AppHeader{
-    height: 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 20px 4px 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.SideMenuAndPageContent{
-    display: flex;
-    flex: 1;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.05) ;
-}
-.SideMenu{
-    height: 100%;
-}
-.SideMenuVertical{
-    height: 100%;
-}
-.PageContent{
-    padding-left: 12px;
-}
-`
+//   `
+//   {/* <AdminNavbar onHamburgerClick={handleHamburgerClick} isOpen={isSidebarOpen}/>
+//   <div className="SideMenuAndPageContent">
+//       <SideMenu isOpen={isSidebarOpen} />
+//       <PageContent />
+//   </div> */}

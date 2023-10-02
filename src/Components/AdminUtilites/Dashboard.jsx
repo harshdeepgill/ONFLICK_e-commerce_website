@@ -19,6 +19,8 @@ import {
   } from "chart.js";
   import { Bar } from "react-chartjs-2";
 import { getInventory, getOrders, getRevenue, getUsers } from "../../Redux/AdminReducer/action";
+import { useDispatch, useSelector } from "react-redux";
+import { TollSharp } from "@mui/icons-material";
 
   
   ChartJS.register(
@@ -31,12 +33,34 @@ import { getInventory, getOrders, getRevenue, getUsers } from "../../Redux/Admin
   );
   
   function Dashboard() {
-    const [orders, setOrders] = useState(5000);
-    const [inventory, setInventory] = useState(200);
-    const [customers, setCustomers] = useState(100);
-    const [revenue, setRevenue] = useState(5758742);
+    const [orders, setOrders] = useState(0);
+   
+    const [revenue, setRevenue] = useState(57568);
+    let {products,users} = useSelector((store)=>store.adminReducer)
+   
+
+  // console.log(users,products)
+    const dispatch = useDispatch()
+   useEffect(()=>{
+    dispatch(getInventory)
+    dispatch(getUsers)
+   
+    if(users){
+      let totalOrders = 0
+      users.forEach(element => {
+      if(element.orders){
+        totalOrders+=element.orders.length
+        // console.log(element.orders)
+      }
+    });
+    setOrders(totalOrders)
+    }
+
+    // setInventory(products.length)
+    // setUsers(users.length)
+   },[])
   
-    
+
   
     return (
       <Space size={20} direction="vertical">
@@ -70,7 +94,7 @@ import { getInventory, getOrders, getRevenue, getUsers } from "../../Redux/Admin
               />
             }
             title={"Inventory"}
-            value={inventory}
+            value={products.length}
           />
           <DashboardCard
             icon={
@@ -85,7 +109,7 @@ import { getInventory, getOrders, getRevenue, getUsers } from "../../Redux/Admin
               />
             }
             title={"Customer"}
-            value={customers}
+            value={users.length}
           />
           <DashboardCard
             icon={

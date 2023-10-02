@@ -1,7 +1,7 @@
 import React from "react";
 import { Skeleton, Box, Grid, GridItem } from "@chakra-ui/react";
 
-const LandingPageSkeleton = () => {
+const ProductListSkeleton = () => {
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
@@ -23,4 +23,4 @@ const LandingPageSkeleton = () => {
   );
 };
 
-export default LandingPageSkeleton;
+export default ProductListSkeleton;

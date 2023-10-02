@@ -1,32 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { categoryData } from "../Components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCart from "../Components/ProductCart";
-import { getProducts } from "../Redux/productReducer/action";
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { getFirstProducts, getProducts } from "../Redux/productReducer/action";
+import { Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import { ChevronDownIcon, SmallCloseIcon } from "@chakra-ui/icons";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import SimpleTextCard from "../Components/Cards/SimpleTextCard";
+import { useDebounce } from "../CoustomHooks/useDebounce";
 
 const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [searchParams, setSearchParams] = useSearchParams();
   
-  const products = useSelector(store => store.productReducer.products);
+  const {products,isFinished} = useSelector((store) => {
+    return {
+      products: store.productReducer.products,
+      isFinished: store.productReducer.isFinished,
+    }
+    
+  });
   const dispatch = useDispatch();
   
   const [category, setCategory] =  useState( searchParams.getAll("category") || []);
   const [order, setOrder] = useState(searchParams.get("order") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "");
 
-  const [paging, setPaging] = useState(2);
+
+  const newFunc = useDebounce(500, fetchNewData);
+
+
+  const paging = useRef(1);
 
 
 
   useEffect(() => {
-    setPaging(2);
+    document.documentElement.scrollTop = 0;
+    paging.current = 1
     let parameter;
     if(sort != ""){
       setSearchParams({category, order,sort})
@@ -46,8 +58,25 @@ const ProductList = () => {
 
       }
     }
-    dispatch(getProducts(parameter));
+    dispatch(getFirstProducts(parameter));
+    
+
+    const listenScrollEvent = () => {
+      let {clientHeight,scrollTop,scrollHeight} = document.documentElement;
+      // console.log("scrollHeight ",scrollHeight, "clientHeight ",clientHeight,"scrollTop ",scrollTop);
+      if(Math.ceil(clientHeight+scrollTop)>=scrollHeight){
+        newFunc();
+      }
+    }
+
+    window.addEventListener("scroll",listenScrollEvent );
+
+    return () => {
+      window.removeEventListener("scroll",listenScrollEvent)
+    }
   },[category, order, sort])
+
+
 
 
   const handleChange = (e) => {
@@ -82,7 +111,8 @@ const ProductList = () => {
     setCategory(newCategory);
   }
 
-  const fetchNewData = () => {
+  function fetchNewData(){
+    paging.current++
     let parameter;
     if(sort != ""){
       setSearchParams({category, order,sort})
@@ -91,20 +121,25 @@ const ProductList = () => {
         _order: order,
         _sort: sort,
         _limit:6,
-        _page: paging
+        _page: paging.current
       }
     }else{
       setSearchParams({category})
       parameter = {
         category,
         _limit: 6,
-        _page:paging
+        _page:paging.current
 
       }
     }
     dispatch(getProducts(parameter));
-    setPaging(prev => prev+1)
   }
+
+  const onGoToTheTop = () => {
+    document.documentElement.scrollTop = 0;
+  }
+
+  
 
 
   return (
@@ -165,12 +200,15 @@ const ProductList = () => {
       </div>
 
 
-      <InfiniteScroll style={{marginTop:"30px", display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"20px"}}
-      dataLength={products.length}
-      next={fetchNewData}
-      >
-        {products?.map(el => <ProductCart key={el.id} {...el}/>)}
-      </InfiniteScroll>
+      <RIGHT>
+        <PRODUCTSDIV>
+          {products?.map(el => <ProductCart key={el.id} {...el}/>)}
+        </PRODUCTSDIV>
+        {isFinished ? <div style={{textAlign:"center",width: "50%", display:"flex", flexDirection:"column", gap:"20px",margin:"auto", marginTop:"50px"}}>
+      <Text fontSize={"1.5rem"} fontWeight={"400"}>Yay! You have seen it all.</Text>
+      <SimpleTextCard text={"GO TO TOP!"} size={"lg"} as="h2" dims="50px" p="1rem" OnClick={onGoToTheTop }/>
+    </div> : <Skeleton startColor='var(--primary2)' endColor='var(--primary1)' height='10px' mt={"20px"} mb={0} />}
+      </RIGHT>
     </PRODUCTS>
     </div>
   );
@@ -210,7 +248,10 @@ const PRODUCTS = styled.div`
 
 `
 const RIGHT = styled.div`
-margin-top: 30px;
+  margin-top: 30px;
+  
+`
+const PRODUCTSDIV = styled.div`
   display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: 20px;

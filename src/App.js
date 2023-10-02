@@ -11,12 +11,12 @@ import LandingPageSkeleton from "./Components/LandingPageSkeleton";
 function App() {
   return (
     <div className="App">
-      {/* <Navbar />
+      <Navbar />
       <AllRoutes />
-     <Footer/> */}
+     <Footer/>
       {/* <AllRoutes /> */}
       {/* <ProductListSkeleton/> */}
-      <LandingPageSkeleton/>
+      {/* <LandingPageSkeleton/> */}
     </div>
   );
 }

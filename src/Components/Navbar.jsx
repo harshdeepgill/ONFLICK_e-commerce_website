@@ -41,6 +41,7 @@ export const categoryData = [
 const flags = ["https://flagcdn.com/w320/in.png","https://flagcdn.com/w320/us.png", "https://flagcdn.com/w320/ca.png", "https://flagcdn.com/w320/de.png"]
 
 function Navbar() {
+  const { items, total } = useSelector((state) => state.cartReducer);
   const [focus, setFocus] = useState(false);
   const [typed, setTyped] = useState(false);
   const [flag, setFlag] = useState("https://flagcdn.com/w320/in.png");
@@ -220,7 +221,7 @@ function Navbar() {
         </ICONDIV>
         <ICONDIV>
           <HiOutlineShoppingBag style={{fontSize:"1.7rem"}}/>
-          <QTYDIV num={cart.length}>{cart.length}</QTYDIV>
+          <QTYDIV num={items.length}>{items.length}</QTYDIV>
         </ICONDIV>
       </DIVLOGO>
     </DIV>

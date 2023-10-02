@@ -19,7 +19,9 @@ function ProductCart({id, image, title, price, category, rating, numVotes}) {
         </div>
     </Link>
         <div  style={{display:'flex', justifyContent:'center', alignItems:'center', marginBottom:'15px'}}>
+        <Link to={`/product_details/${id}`}>
             <button style={{backgroundColor:'#00cc44', color:'white', padding:'5px 25px', borderRadius:'25px'}}>Add to cart</button>
+            </Link>
         </div>
     </div>
     </>

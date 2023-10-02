@@ -6,7 +6,7 @@ const ProductListSkeleton = () => {
     <>
       {/* Navbar Skeleton */}
       <Box
-        bg="gray.200"
+        bg="white"
         color="white"
         p={4}
         display="flex"
@@ -24,7 +24,7 @@ const ProductListSkeleton = () => {
 
       {/* Sidebar Skeleton */}
       <Box
-        bg="gray.200"
+        bg="white"
         p={4}
         height="100vh"
         width="250px"
@@ -34,19 +34,19 @@ const ProductListSkeleton = () => {
         marginRight={5}
         marginTop={20}
       >
-        <Skeleton height="30px" mb={10} />
+       
         {/* {[...Array(12)].map((_, index) => (
           <Skeleton key={index} height="20px" mb={2} />
         ))} */}
 
-        <Skeleton height="30px" width="80%" mb={10} />
-        <Skeleton height="30px" width="80%"  mb={10} />
-        <Skeleton height="30px" width="60%" mb={10} />
-        <Skeleton height="30px" width="60%" mb={10} />
-        <Skeleton height="30px" width="70%" mb={10} />
-        <Skeleton height="30px" width="60%" mb={10} />
-        <Skeleton height="30px" width="80%" mb={10} />
-        <Skeleton height="30px" width="80%" mb={10} />
+        <Skeleton height="30px" width="80%" mt={20} mb={10} />
+        <Skeleton height="15px" width="80%"  mb={10} />
+        <Skeleton height="15px" width="60%" mb={10} />
+        <Skeleton height="15px" width="60%" mb={10} />
+        <Skeleton height="15px" width="70%" mb={10} />
+        <Skeleton height="15px" width="60%" mb={10} />
+        <Skeleton height="15px" width="80%" mb={10} />
+        <Skeleton height="15px" width="80%" mb={10} />
       </Box>
 
       {/* Product List Skeleton */}

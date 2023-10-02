@@ -10,15 +10,18 @@ import { Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import { ChevronDownIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import SimpleTextCard from "../Components/Cards/SimpleTextCard";
 import { useDebounce } from "../CoustomHooks/useDebounce";
+import LandingPageSkeleton from "../Components/LandingPageSkeleton";
+import ProductListSkeleton from "../Components/ProductListSkeleton";
 
 const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [searchParams, setSearchParams] = useSearchParams();
   
-  const {products,isFinished} = useSelector((store) => {
+  const {products,isFinished,isLoading} = useSelector((store) => {
     return {
       products: store.productReducer.products,
       isFinished: store.productReducer.isFinished,
+      isLoading: store.productReducer.isLoading
     }
     
   });
@@ -138,14 +141,17 @@ const ProductList = () => {
   const onGoToTheTop = () => {
     document.documentElement.scrollTop = 0;
   }
-
+console.log(isLoading)
+  // if(isLoading){
+  //   return (<ProductListSkeleton/>)
+  // }
   
 
 
   return (
     <div>
       <TOPDIV>
-        <div style={{display:"flex", justifyContent:"space-between", paddingRight:"15%"}}>
+        <div style={{display:"flex", justifyContent:"space-between"}}>
           <Heading p={0} as={"h6"} size={"s"}>Filter</Heading>
           {category.length> 0 && <Heading cursor={"pointer"} onClick={()=>{setCategory([])}} color={"var(--primary1)"} p={0} mt={"7px"} as={"h6"} size={"xs"}>CLEAR FILTER</Heading>}
           
@@ -202,7 +208,7 @@ const ProductList = () => {
 
       <RIGHT>
         <PRODUCTSDIV>
-          {products?.map(el => <ProductCart key={el.id} {...el}/>)}
+          {products?.map(el => <ProductCart halfStar={Math.ceil(el.rating)-Math.floor(el.rating) == 1? 1:0} emptyStar={5 - Math.ceil(el.rating)} fullStar={Math.floor(el.rating)} key={el.id} {...el}/>)}
         </PRODUCTSDIV>
         {isFinished ? <div style={{textAlign:"center",width: "50%", display:"flex", flexDirection:"column", gap:"20px",margin:"auto", marginTop:"50px"}}>
       <Text fontSize={"1.5rem"} fontWeight={"400"}>Yay! You have seen it all.</Text>
@@ -219,7 +225,7 @@ export  {ProductList};
 const PRODUCTS = styled.div`
   padding: 0 4% 30px 4%;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
 
   .left {
     position: sticky;
@@ -252,15 +258,19 @@ const RIGHT = styled.div`
   
 `
 const PRODUCTSDIV = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: space-between;
+  -webkit-box-pack: justify;
 `
 
 const TOPDIV = styled.div`
 padding: 0 4%;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1.2fr 5.6fr;
+  gap: 45px;
   grid-template-rows: 40px;
   align-items: center;
   border-bottom: 1px solid #cdccc7;

@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { BsEnvelopeAt, BsEye, BsEyeSlash, BsPerson } from "react-icons/bs";
 import Logo from './Logo';
+import { useNavigate } from 'react-router-dom';
 
 const intialRegisteredData = { id: "", password: "", name: "",wishlist:[], cart:[], orders:[], image:""}
 const initialLogin = { id: "", password: "" }
@@ -25,8 +26,10 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
   const [loginData, setLogin] = useState(initialLogin)
 
   const [show, setShow] = useState(false);
-  const [tabIndex, setTabIndex] = useState(0)
-  const handleClick = () => setShow(!show)
+  const [tabIndex, setTabIndex] = useState(0);
+  const handleClick = () => setShow(!show);
+
+  const nvigate = useNavigate();
 
   const dispatch = useDispatch();
   const toast = useToast();
@@ -46,10 +49,10 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
 
     dispatch(login(loginData))
       .then((res) => {
-        console.log(res.data)
         if (res.data.password === loginData.password) {
           dispatch({ type: LOGIN_SUCSESS, payload:res.data });
           localStorage.setItem("flickUser", JSON.stringify({isAuthFlick:true, id:res.data.id}));
+
           toast({
             title: "Sign In Successfully!",
             position: "top-center",
@@ -57,6 +60,7 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
             duration: 2000,
             isClosable: true,
           });
+          nvigate(-1)
           
         }
         else {

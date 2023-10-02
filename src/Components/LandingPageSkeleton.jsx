@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Skeleton, Box, Grid, GridItem } from "@chakra-ui/react";
 
 const LandingPageSkeleton = () => {
@@ -6,7 +6,7 @@ const LandingPageSkeleton = () => {
     <div>
       {/* Navbar Skeleton */}
       <Box
-        bg="gray.200"
+        bg="white"
         color="white"
         p={4}
         display="flex"
@@ -21,8 +21,20 @@ const LandingPageSkeleton = () => {
         <Skeleton height="30px" width="40px" />
         <Skeleton height="30px" width="40px" />
       </Box>
+
+      <Box
+        bg="gray.200"
+        color="white"
+        p={4}
+        paddingTop={20}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        height={500}
+        width="100%"
+      ></Box>
     </div>
   );
-}
+};
 
-export default LandingPageSkeleton
+export default LandingPageSkeleton;

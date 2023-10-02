@@ -14,10 +14,9 @@ function App() {
       {/* <Navbar />
       <AllRoutes />
      <Footer/> */}
-      
-      {/* <ProductListSkeleton/> */}
-      <LandingPageSkeleton/>
-      
+      {/* <AllRoutes /> */}
+      <ProductListSkeleton/>
+      {/* <LandingPageSkeleton/> */}
     </div>
   );
 }

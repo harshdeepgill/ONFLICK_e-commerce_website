@@ -13,12 +13,13 @@ const ProductListSkeleton = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Skeleton height="50px" width="80px" />
-        <Skeleton height="50px" width="80px" />
-        <Skeleton height="50px" width="80px" />
-        <Skeleton height="50px" width="80px" />
-        <Skeleton height="50px" width="80px" />
-        <Skeleton height="50px" width="80px" />
+        <Skeleton height="50px" width="180px" />
+        <Skeleton height="30px" width="120px" />
+        <Skeleton height="30px" width="100px" />
+        <Skeleton height="30px" width="100px" />
+        <Skeleton height="30px" width="250px" />
+        <Skeleton height="30px" width="40px" />
+        <Skeleton height="30px" width="40px" />
       </Box>
 
       {/* Sidebar Skeleton */}
@@ -31,39 +32,44 @@ const ProductListSkeleton = () => {
         top="0"
         left="0"
         marginRight={5}
-        marginTop={10}
+        marginTop={20}
       >
         <Skeleton height="30px" mb={10} />
-        {[...Array(12)].map((_, index) => (
+        {/* {[...Array(12)].map((_, index) => (
           <Skeleton key={index} height="20px" mb={2} />
-        ))}
+        ))} */}
+
+        <Skeleton height="30px" width="80%" mb={10} />
+        <Skeleton height="30px" width="80%"  mb={10} />
+        <Skeleton height="30px" width="60%" mb={10} />
+        <Skeleton height="30px" width="60%" mb={10} />
+        <Skeleton height="30px" width="70%" mb={10} />
+        <Skeleton height="30px" width="60%" mb={10} />
+        <Skeleton height="30px" width="80%" mb={10} />
+        <Skeleton height="30px" width="80%" mb={10} />
       </Box>
 
       {/* Product List Skeleton */}
       <Grid
-        templateColumns="repeat(3, 1fr)"
-        gap={6}
+        templateColumns="repeat(4, 1fr)"
+        gap={4}
         p={4}
         justifyItems="center"
         alignItems="center"
         marginLeft={255}
       >
-        {[...Array(6)].map((_, index) => (
+        {[...Array(4)].map((_, index) => (
           <GridItem key={index}>
             <Box p={4} shadow="lg" borderWidth="1px" borderRadius="md">
-              <Skeleton height="200px" width="100%" mb={4} />
-              <Skeleton height="10px" width="200px" mb={2} />
-              <Skeleton height="10px" width="60%" />
+              <Skeleton height="400px" width="250px" mb={4} />
+              <Skeleton height="20px" width="150px" mb={2} />
+              <Skeleton height="10px" width="60%" mb={2} />
+              <Skeleton height="10px" width="60%" mb={2} />
+              <Skeleton height="50px" width="100%" />
             </Box>
           </GridItem>
         ))}
       </Grid>
-
-          
-
-
-
-
     </>
   );
 };

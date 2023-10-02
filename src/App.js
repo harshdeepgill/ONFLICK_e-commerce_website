@@ -5,16 +5,18 @@ import Navbar from "./Components/Navbar";
 import ImageSlider from "./Components/ImageSlider";
 import { Footer } from "./Components/Footer/Footer";
 import ProductListSkeleton from "./Components/ProductListSkeleton";
+import LandingPageSkeleton from "./Components/LandingPageSkeleton";
 
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      {/* <Navbar />
       <AllRoutes />
-     <Footer/>
+     <Footer/> */}
       
-      
+      {/* <ProductListSkeleton/> */}
+      <LandingPageSkeleton/>
       
     </div>
   );

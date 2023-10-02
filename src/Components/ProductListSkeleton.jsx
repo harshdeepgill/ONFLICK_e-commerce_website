@@ -39,14 +39,14 @@ const ProductListSkeleton = () => {
           <Skeleton key={index} height="20px" mb={2} />
         ))} */}
 
-        <Skeleton height="30px" width="80%" mt={20} mb={10} />
-        <Skeleton height="15px" width="80%"  mb={10} />
-        <Skeleton height="15px" width="60%" mb={10} />
-        <Skeleton height="15px" width="60%" mb={10} />
-        <Skeleton height="15px" width="70%" mb={10} />
-        <Skeleton height="15px" width="60%" mb={10} />
-        <Skeleton height="15px" width="80%" mb={10} />
-        <Skeleton height="15px" width="80%" mb={10} />
+        <Skeleton height="30px" width="80%" paddingLeft={1} mt={20} mb={10} />
+        <Skeleton height="15px" width="80%" paddingLeft={1}  mb={10} />
+        <Skeleton height="15px" width="60%" paddingLeft={1} mb={10} />
+        <Skeleton height="15px" width="60%" paddingLeft={1} mb={10} />
+        <Skeleton height="15px" width="70%" paddingLeft={1} mb={10} />
+        <Skeleton height="15px" width="60%" paddingLeft={1} mb={10} />
+        <Skeleton height="15px" width="80%" paddingLeft={1} mb={10} />
+        <Skeleton height="15px" width="80%" paddingLeft={1} mb={10} />
       </Box>
 
       {/* Product List Skeleton */}

@@ -19,6 +19,8 @@ function CheckoutPage() {
     postalCode: '',
   });
   const [isAddressSaved, setIsAddressSaved] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -41,32 +43,44 @@ function CheckoutPage() {
     setIsAddressSaved(true);
   };
 
+  const handleCouponChange = (e) => {
+    setCouponCode(e.target.value);
+  };
+
+  const applyCoupon = () => {
+    if (couponCode === 'save25') {
+      // Apply a 25% discount
+      const discountAmount = (product.price * 25) / 100;
+      setDiscount(discountAmount);
+    }
+  };
+
   return (
     <Container>
-      <div style={{ display:'flex', flexDirection:'column', gap: '35px', width: '75%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '35px', width: '75%' }}>
         <Section>
-          <h3 style={{ fontSize: "large", fontWeight: 'bold', paddingBottom: '15px' }}>Review Items and Shipping</h3>
+          <h3 style={{ fontSize: 'large', fontWeight: 'bold', paddingBottom: '15px' }}>Review Items and Shipping</h3>
           <ProductInfo>
             <img src={product.image} alt="Product" />
             <div>
-              <h2 style={{ fontSize: "large", fontWeight: '600', paddingBottom: '15px' }}>{product.title}</h2>
-              <p style={{ fontSize: "large", fontWeight: '300', paddingBottom: '15px' }}>Category: {product.category}</p>
+              <h2 style={{ fontSize: 'large', fontWeight: '600', paddingBottom: '15px' }}>{product.title}</h2>
+              <p style={{ fontSize: 'large', fontWeight: '300', paddingBottom: '15px' }}>Category: {product.category}</p>
             </div>
             <div>
-              <p style={{ fontSize: "large", fontWeight: '600', paddingBottom: '15px' }}>Price: ${product.price}</p>
-              <p style={{ fontSize: "large", fontWeight: '300', paddingBottom: '15px' }}>Quantity: 1</p>
+              <p style={{ fontSize: 'large', fontWeight: '600', paddingBottom: '15px' }}>Price: ${product.price}</p>
+              <p style={{ fontSize: 'large', fontWeight: '300', paddingBottom: '15px' }}>Quantity: 1</p>
             </div>
           </ProductInfo>
         </Section>
         <Section>
           {!isAddressSaved ? (
             <AddressForm>
-              <h3 style={{ fontSize: "large", fontWeight: 'bold', paddingBottom: '15px' }}>Shipping Address</h3>
+              <h3 style={{ fontSize: 'large', fontWeight: 'bold', paddingBottom: '15px' }}>Shipping Address</h3>
               <form onSubmit={handleSaveAddress}>
                 <input
                   type="text"
                   id="name"
-                  placeholder='Name'
+                  placeholder="Name"
                   name="name"
                   value={address.name}
                   onChange={handleAddressChange}
@@ -74,7 +88,7 @@ function CheckoutPage() {
                 <input
                   type="text"
                   id="street"
-                  placeholder='Street'
+                  placeholder="Street"
                   name="street"
                   value={address.street}
                   onChange={handleAddressChange}
@@ -82,14 +96,14 @@ function CheckoutPage() {
                 <input
                   type="text"
                   id="city"
-                  placeholder='City'
+                  placeholder="City"
                   name="city"
                   value={address.city}
                   onChange={handleAddressChange}
                 />
                 <input
                   type="text"
-                  placeholder='Postal Code'
+                  placeholder="Postal Code"
                   id="postalCode"
                   name="postalCode"
                   value={address.postalCode}
@@ -111,31 +125,61 @@ function CheckoutPage() {
       </div>
       <Section style={{ width: '25%' }}>
         <Summary>
-          <h3 style={{ fontSize: "large", fontWeight: 'bold' }}>Order Summary</h3>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>Price:</p>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>{product.price}</p>
+          <h3 style={{ fontSize: 'large', fontWeight: 'bold' }}>Order Summary</h3>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>Price:</p>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>{product.price}</p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>Quantity:</p>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>1</p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>Discount:</p>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>{discount}</p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>Total:</p>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>
+              {product.price - discount}
+            </p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ fontSize: 'large', fontWeight: '400' }}>Coupon:</p>
+            <div>
+              <input
+                type="text"
+                style={{ border: '1px solid black', borderRadius: '5px' }}
+                value={couponCode}
+                onChange={handleCouponChange}
+              />
+              <button
+                style={{
+                  backgroundColor: '#00cc44',
+                  color: 'white',
+                  padding: '5px 10px',
+                  borderRadius: '5px',
+                  cursor:'pointer'
+                }}
+                onClick={applyCoupon}
+              >
+                Apply
+              </button>
             </div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>Quantity:</p>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>1</p>
-            </div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>Discount:</p>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>0</p>
-            </div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>Total:</p>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>{product.price}</p>
-            </div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <p style={{ fontSize: "large", fontWeight: '400' }}>Coupon:</p>
-                <input type="text" style={{border:"1px solid black", borderRadius:'5px'}} />
-                <button style={{backgroundColor:'#00cc44', color:'white', padding:'5px 10px', borderRadius:'5px'}}>Apply</button>
-            </div>
-            <div style={{display:"flex", alignItems:'center', margin:'20px'}}>
-                <Link to={`/product_details/${id}/checkout/payment`} style={{backgroundColor:'#00cc44', color:'white', padding:'5px 30px', borderRadius:'5px'}}>Proceed to Payment</Link>
-            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', margin: '20px' }}>
+            <Link
+              to={`/product_details/${id}/checkout/payment`}
+              style={{
+                backgroundColor: '#00cc44',
+                color: 'white',
+                padding: '5px 30px',
+                borderRadius: '5px',
+              }}
+            >
+              Proceed to Payment
+            </Link>
+          </div>
         </Summary>
       </Section>
     </Container>

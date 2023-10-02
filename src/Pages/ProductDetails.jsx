@@ -5,6 +5,7 @@ import { getProducts } from '../Redux/productReducer/action';
 import styled from 'styled-components';
 import StarRating from '../Components/StarRating'; // Import the StarRating component
 import ProductCart from '../Components/ProductCart';
+import { addToCart } from '../Redux/cartReducer/action';
 
 const simlerData = [
     {
@@ -58,6 +59,9 @@ function ProductDetails() {
   }));
   const [product, setProduct] = useState({});
 
+  const handleAddToCart = () =>{
+    dispatch(addToCart(product));
+  }
   useEffect(() => {
     dispatch(getProducts());
     const selectedProduct = products.find((ele) => ele.id === +id);
@@ -94,7 +98,7 @@ function ProductDetails() {
                     </div>
                     <div style={{display:'flex', gap:'15px', alignItems:'center'}}>
                     <Link to={`/product_details/${id}/checkout`} style={{ backgroundColor: '#00cc44', color: 'white', padding: '10px 35px', borderRadius: '35px' }}>Buy Now</Link>
-                        <button style={{backgroundColor:'white', color:'#00cc44', padding:'10px 35px', borderRadius:'35px', border:'1px solid #00cc44'}}>Add to Cart</button>
+                        <button onClick={handleAddToCart} style={{backgroundColor:'white', color:'#00cc44', padding:'10px 35px', borderRadius:'35px', border:'1px solid #00cc44'}}>Add to Cart</button>
                     </div>
                 </div>
             </div>

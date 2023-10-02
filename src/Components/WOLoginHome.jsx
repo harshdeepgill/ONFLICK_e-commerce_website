@@ -152,13 +152,21 @@ const productIdSwitcher = [3,7,23,5,2,9,13,14];
 
 const WOLoginHome = () => {
   const [color, setColor] = useState(false);
+  const [saleColor, setSaleColor] = useState(false);
 
 
   useEffect(()=>{
      setTimeout(()=>{
       setColor(prev => !prev);
-    },1000)
+    },1000);
 
+    let intervalId = setInterval(()=> {
+      setSaleColor(prev => !prev)
+    },500)
+
+    return () => {
+      clearInterval(intervalId);
+    }
   },[])
 
   if(!color){
@@ -170,7 +178,8 @@ const WOLoginHome = () => {
       {/* -------------GIF SECTION--------------------- */}
       <GIFDIV>
         <Flex  flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w={"100%"} height={"100%"}>
-          <Heading as='h2' size='2xl' letterSpacing={3}>MEGA SALE MADNESS!</Heading>
+
+          <Heading as='h2' size='2xl' letterSpacing={3}>MEGA SALE MADNESS<sapn style={saleColor?{color:"var(--primary1)", fontWeight:900}: {color:"white", fontWeight:900}}>!</sapn></Heading>
           <Text mt={3}>ENJOY UPTO 50% OFF ON ICONIC BRANDS</Text>
         </Flex>
       </GIFDIV>

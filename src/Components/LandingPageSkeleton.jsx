@@ -6,7 +6,7 @@ const LandingPageSkeleton = () => {
   return (
     <div>
       {/* Navbar Skeleton */}
-      <Box
+      {/* <Box
         bg="white"
         color="white"
         p={4}
@@ -21,7 +21,7 @@ const LandingPageSkeleton = () => {
         <Skeleton height="30px" width="250px" />
         <Skeleton height="30px" width="40px" />
         <Skeleton height="30px" width="40px" />
-      </Box>
+      </Box> */}
       <Box
         bg="gray.200"
         color="white"

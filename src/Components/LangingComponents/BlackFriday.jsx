@@ -20,7 +20,7 @@ const BlackFriday = () => {
                 })
                 return secprev-84
             })
-        },200)
+        },100)
 
 
     },[])

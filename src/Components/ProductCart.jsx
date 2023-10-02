@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import {Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,12 +14,13 @@ function ProductCart({id, image, title, price, category, rating, numVotes, fullS
   const hs = useRef(new Array(halfStar).fill(Math.random()));
   const es = useRef(new Array(emptyStar).fill(Math.random()));
 
+  const [includesWishlist, setIncludesWishlist] = useState(false);
+
   const {isAuth,wishlist,idUser} = useSelector((store) => {
     return {
       isAuth: store.authReducer.isAuth,
       wishlist: store.authReducer.wishlist,
       idUser: store.authReducer.id
-
     }
   });
   const navigate = useNavigate();
@@ -30,10 +31,16 @@ function ProductCart({id, image, title, price, category, rating, numVotes, fullS
       navigate("/login");
     }else{
       let newWishlist = [...wishlist];
-      if(newWishlist.includes(id)){
-        newWishlist.splice(newWishlist.indexOf(id),1);
+      let bool = false;
+      newWishlist.forEach((el) => {
+        if(el.id == id){
+          bool = true
+        }
+      })
+      if(bool){
+        newWishlist = newWishlist.filter((el) => el.id!=id)
       }else{
-        newWishlist = [...wishlist, id];
+        newWishlist = [...wishlist, {id, image, title, category, rating, numVotes,price}];
       }
       dispatch(addWish(idUser, newWishlist))
     }
@@ -47,6 +54,14 @@ function ProductCart({id, image, title, price, category, rating, numVotes, fullS
     backgroundColor: "white",
     color: "black"
   }
+
+  useEffect(()=>{
+    wishlist.forEach((el) => {
+      if(el.id == id){
+        setIncludesWishlist(true);
+      }
+    })
+  },[wishlist])
 
   return (
     <>
@@ -70,7 +85,7 @@ function ProductCart({id, image, title, price, category, rating, numVotes, fullS
         </METADATA>
     </Link>
         <Button w={"100%"} bg={"white"} color={"black"} variant={"outline"} colorScheme='black' borderRadius={0} _hover={{backgroundColor:"black", color:"white"}} leftIcon={<HiOutlineShoppingBag style={{fontSize:"1.3rem"}}/>}>ADD TO CART</Button>
-    <HEART style={wishlist.includes(id)?onStyle:offStyle} onClick={addToWishlist}>
+    <HEART style={includesWishlist?onStyle:offStyle} onClick={addToWishlist}>
       <FaRegHeart style={{fontSize:"1.2em"}} />
     </HEART>
     </MAINDIV>

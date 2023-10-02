@@ -9,6 +9,7 @@ import MainICC from './LangingComponents/ImageChangingComponent/mainICC';
 import Logo from './Logo';
 import SimpleImageTextCard from './LangingComponents/SimpleImageTextCard';
 import BlackFriday from './LangingComponents/BlackFriday';
+import LandingPageSkeleton from './LandingPageSkeleton';
 
 const urls = [
   "https://assets.myntassets.com/f_webp,w_404,c_limit,fl_progressive,dpr_2.0/assets/images/2023/9/16/c8d03b7a-2115-403a-9079-099bb1bc163a1694878389211-Desktop-Phase_1-DK-Main-Banner.jpg",
@@ -154,14 +155,15 @@ const WOLoginHome = () => {
 
 
   useEffect(()=>{
-    let intervalID = setInterval(()=>{
+     setTimeout(()=>{
       setColor(prev => !prev);
     },1000)
 
-    return () =>{
-      clearInterval(intervalID);
-    }
   },[])
+
+  if(!color){
+    return (<LandingPageSkeleton/>)
+  }
   return (
     <DIV>
 

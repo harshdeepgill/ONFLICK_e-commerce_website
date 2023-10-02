@@ -19,6 +19,7 @@ export const getProducts = (parameter) => (dispatch) =>{
 }
 
 export const getFirstProducts = (parameter) => (dispatch) => {
+    dispatch({type:GET_REQUEST})
     axios.get(`https://productdecisiveduck.onrender.com/products`, {
         params: parameter
     })

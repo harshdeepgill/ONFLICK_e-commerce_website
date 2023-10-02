@@ -11,6 +11,7 @@ import { ChevronDownIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import SimpleTextCard from "../Components/Cards/SimpleTextCard";
 import { useDebounce } from "../CoustomHooks/useDebounce";
 import LandingPageSkeleton from "../Components/LandingPageSkeleton";
+import ProductListSkeleton from "../Components/ProductListSkeleton";
 
 const ProductList = () => {
   const [maxPrice, setMaxPrice] = useState(1000);
@@ -141,9 +142,9 @@ const ProductList = () => {
     document.documentElement.scrollTop = 0;
   }
 console.log(isLoading)
-  if(isLoading){
-    return (<LandingPageSkeleton/>)
-  }
+  // if(isLoading){
+  //   return (<ProductListSkeleton/>)
+  // }
   
 
 

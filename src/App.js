@@ -11,11 +11,8 @@ function App() {
   
   return (
     <div className="App">
-        {/* <Navbar />
-        <AllRoutes /> */}
-        <AdminPage/>
-        
-      
+        <Navbar />
+        <AllRoutes />
     </div>
   );
 }

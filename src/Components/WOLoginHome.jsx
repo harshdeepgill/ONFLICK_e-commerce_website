@@ -5,6 +5,10 @@ import styled from 'styled-components';
 import { Flex, Heading , Text} from '@chakra-ui/react';
 import CardSwitcher from './CardSwitcher/CardSwitcher';
 import SimpleTextCard from './Cards/SimpleTextCard';
+import MainICC from './LangingComponents/ImageChangingComponent/mainICC';
+import Logo from './Logo';
+import SimpleImageTextCard from './LangingComponents/SimpleImageTextCard';
+import BlackFriday from './LangingComponents/BlackFriday';
 
 const urls = [
   "https://assets.myntassets.com/f_webp,w_404,c_limit,fl_progressive,dpr_2.0/assets/images/2023/9/16/c8d03b7a-2115-403a-9079-099bb1bc163a1694878389211-Desktop-Phase_1-DK-Main-Banner.jpg",
@@ -103,6 +107,45 @@ const dummyData = [
   }
 ]
 
+const simpleImageSwitcher = [
+  {
+    image:"https://images.bewakoof.com/t1080/women-s-red-mickey-mouse-graphic-printed-oversized-sweatshirt-432380-1672833363-1.jpg",
+    text: "MICKY"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/men-s-black-zipper-sweatshirt-363696-1695639804-1.jpg",
+    text: "BLUE"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/inner-peace-half-sleeve-printed-t-shirt-black-295708-1655749271-1.jpg",
+    text: "DATE"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/women-s-black-wanderlust-graphic-printed-oversized-short-top-620597-1695381779-1.JPG",
+    text: "WANDER"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/women-s-black-be-curious-graphic-printed-oversized-t-shirt-620589-1695381817-1.jpg",
+    text: "PRINT"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/women-black-printed-tshirt-28-582041-1694171428-1.jpg",
+    text: "SCARY"
+  },
+  {
+    image:"https://images.bewakoof.com/t640/women-s-maroon-oversized-sweatshirt-596471-1695384234-1.jpg",
+    text: "OVERSIZED"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/women-s-black-solid-oversize-jogger-555636-1680593160-1.jpg",
+    text: "JUMPSUIT"
+  },
+  {
+    image:"https://images.bewakoof.com/t1080/women-s-black-one-with-the-universe-graphic-printed-boyfriend-t-shirt-483055-1688645226-4.jpg",
+    text: "MINI"
+  },
+]
+
 const productTextSwitcher = ["Bookshelf", "Wardrobe", "Hiking Boots", "Drawers", "Leather Sofa", "Recliner Chair","Bluetooth Earbuds", "Gaming Headset"];
 const productIdSwitcher = [3,7,23,5,2,9,13,14];
 
@@ -130,7 +173,7 @@ const WOLoginHome = () => {
         </Flex>
       </GIFDIV>
       {/* -------------GIF SECTION--------------------- */}
-
+      <BlackFriday/>
 
       {/* ------------------Image Slider 1------------------------ */}
       <ImageSlider images={urls}/>
@@ -155,6 +198,22 @@ const WOLoginHome = () => {
         {productTextSwitcher.map((el,index) => <SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/>)}
       </CardSwitcher>
     </div>
+    <MainICC/>
+
+    <div style={{width:"100%", backgroundColor:"black", paddingBottom:"40px"}}>
+      <img style={{width:"100%"}} src='https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/banner%2FSquare%20pictures%2FONLY%20ON.png?alt=media&token=c59e8da6-e203-4905-bbdf-fe38694bbdac&_gl=1*xxzltn*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NjI1NTM4Ni4zMC4xLjE2OTYyNTUzOTguNDguMC4w'/>
+      <CardSwitcher center={true} slideWidth={0.33*window.innerWidth} aboveShift={"23vw"}>
+          {simpleImageSwitcher?.map((el, index) => <SimpleImageTextCard key={index} {...el}/>)}
+      </CardSwitcher>
+    </div>
+
+    <div>
+      <img src='https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1672040129.jpg' alt='horizontal banner'/>
+    </div>
+    <div>
+      <img src='https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1669022420.jpg' alt='horizontal banner'/>
+    </div>
+
     </DIV>
   )
 }
@@ -187,7 +246,7 @@ const DIV = styled.div`
 const GIFDIV = styled.div`
   width: 100%;
   height: 200px;
-  background-image: url("https://i.gifer.com/7MpT.gif");
+  background-image: url("https://i.gifer.com/LSsT.gif");
   font-family: var(--primary-font-family);
   color: white;
 `

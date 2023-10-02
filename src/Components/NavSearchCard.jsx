@@ -15,7 +15,7 @@ const NavSearchCard = ({fullStar, halfStar, emptyStar,id, title, image, price}) 
         <Flex justifyContent={"space-between"} alignItems={"center"}>
             <Box w={"40px"} h={"40px"}><Image objectFit={"cover"} w={"100%"} h={"40px"} src={image}/></Box>
             <Heading as='h6' size='xs'>{title}</Heading>
-            <Flex color={"skyblue"}>
+            <Flex color={"var(--primary2)"}>
                 {fs.current?.map((el,index)=> <FontAwesomeIcon key={el} icon={faStar} />)}
                 {hs.current?.map((el,index)=> <FontAwesomeIcon key={el} icon={faStarHalfStroke} />)}
                 {es.current?.map((el,index)=> <FontAwesomeIcon key={el} icon="fa-regular fa-star" />)}

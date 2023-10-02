@@ -5,9 +5,9 @@ let usersURL = "https://woozy-luck-thunbergia.glitch.me";
   
   export const getInventory = (dispatch) => {
     dispatch({type:ADMIN_REQUEST})
-    return axios.get(`${url}`).then((res)=>{
+     axios.get(`${url}`).then((res)=>{
       dispatch({type:ADMIN_PRODUCT_SUCCESS,payload:res.data})
-      // console.log(res.data)
+      //  console.log(res.data,"shiva eripuka")
     }).catch((error)=>{
       dispatch({type:ADMIN_FAILURE})
     })
@@ -17,6 +17,7 @@ let usersURL = "https://woozy-luck-thunbergia.glitch.me";
     dispatch({type:ADMIN_REQUEST})
     return axios.get(`https://woozy-luck-thunbergia.glitch.me/users`).then((res)=>{
       dispatch({type:ADMIN_USERS_SUCCESS,payload:res.data})
+      // console.log(res.data,"guru")
     }).catch((error)=>{
       dispatch({type:ADMIN_FAILURE})
     })

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getProducts } from '../Redux/productReducer/action';
 import styled from 'styled-components';
+import { Footer } from '../Components/Footer/Footer';
 
 function CheckoutPage() {
   const dispatch = useDispatch();
@@ -182,6 +183,7 @@ function CheckoutPage() {
           </div>
         </Summary>
       </Section>
+      <Footer/>
     </Container>
   );
 }

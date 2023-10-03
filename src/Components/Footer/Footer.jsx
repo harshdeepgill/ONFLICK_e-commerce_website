@@ -25,7 +25,6 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import emailjs from "emailjs-com";
 import { useState } from "react";
 
 const initState = {
@@ -40,20 +39,6 @@ const Footer = () => {
     setMail({ ...email, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log("hello");
-    alert("you have subscribed");
-    emailjs
-      .sendForm(
-        "service_0jdojop",
-        "template_wvp7w7x",
-        e.target,
-        "y3zcxMjtk2g0bGO0a"
-      )
-      .then((res) => console.log(res))
-      .catch((res) => console.log(res));
-  };
 
   return (
     <Box>
@@ -77,12 +62,12 @@ const Footer = () => {
       >
         <Box width={{ base: "100%", sm: "100%", md: "50%", lg: "30%" }}>
           <Box mt={4} position="relative">
-            <form onSubmit={handleSubmit}>
+            <form>
               <Input
                 focusBorderColor="none"
                 name="user_email"
                 value={email.user_email}
-                outlineColor="red"
+                outlineColor="var(--primary1)"
                 variant="unstyled"
                 p={3}
                 placeholder="Email Adress"
@@ -90,7 +75,7 @@ const Footer = () => {
               />
               <Button
                 type="submit"
-                bg="red"
+                bg="var(--primary1)"
                 color="white"
                 position="absolute"
                 top="1"

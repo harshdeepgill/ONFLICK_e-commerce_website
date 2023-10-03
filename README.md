@@ -40,8 +40,6 @@
 
 <img width="1075" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/home.png">
 
-<img width="1075" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/home2.png">
-
 ## **_Product Page_**
 
 <img width="1069" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/ProductPage.png">

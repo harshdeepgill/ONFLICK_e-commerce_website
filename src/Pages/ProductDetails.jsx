@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import StarRating from '../Components/StarRating'; // Import the StarRating component
 import ProductCart from '../Components/ProductCart';
 import { addToCart } from '../Redux/cartReducer/action';
+import { Footer } from '../Components/Footer/Footer';
 
 const simlerData = [
     {
@@ -47,6 +48,16 @@ const simlerData = [
         "numVotes": 150,
         "image": "https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FProduct_api%2FBed%20frome.jpg?alt=media&token=c9a7a1f5-8572-49ff-9603-bc2c748059c3",
         "description": "Comfortable bed frame for a good night's sleep."
+      },
+      {
+        "id": 5,
+        "title": "Leather Sofa Set",
+        "price": 699.99,
+        "category": "Furniture",
+        "rating": 4.2,
+        "numVotes": 95,
+        "image": "https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FProduct_api%2FLeather%20Sofa.jpg?alt=media&token=23982c30-dc93-4536-99f5-8fdce276de57",
+        "description": "Luxurious leather sofa set for your living room."
       }
 ]
 function ProductDetails() {
@@ -136,6 +147,7 @@ function ProductDetails() {
             </div>
           </div>
 
+          <Footer/>
         </MainDiv>
       ) : (
         <p>Product not found</p>

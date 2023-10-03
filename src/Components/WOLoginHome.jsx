@@ -10,6 +10,8 @@ import Logo from './Logo';
 import SimpleImageTextCard from './LangingComponents/SimpleImageTextCard';
 import BlackFriday from './LangingComponents/BlackFriday';
 import LandingPageSkeleton from './LandingPageSkeleton';
+import { Footer } from './Footer/Footer';
+import {Link} from "react-router-dom";
 
 const urls = [
   "https://assets.myntassets.com/f_webp,w_404,c_limit,fl_progressive,dpr_2.0/assets/images/2023/9/16/c8d03b7a-2115-403a-9079-099bb1bc163a1694878389211-Desktop-Phase_1-DK-Main-Banner.jpg",
@@ -148,6 +150,7 @@ const simpleImageSwitcher = [
 ]
 
 const productTextSwitcher = ["Bookshelf", "Wardrobe", "Hiking Boots", "Drawers", "Leather Sofa", "Recliner Chair","Bluetooth Earbuds", "Gaming Headset"];
+const productTextSwitcherId = [3,7,23,5,2,9,13,14]
 const productIdSwitcher = [3,7,23,5,2,9,13,14];
 
 const WOLoginHome = () => {
@@ -174,7 +177,7 @@ const WOLoginHome = () => {
   }
   return (
     <DIV>
-
+<Link to="/productlist">
       {/* -------------GIF SECTION--------------------- */}
       <GIFDIV>
         <Flex  flexDirection={"column"} justifyContent={"center"} alignItems={"center"} w={"100%"} height={"100%"}>
@@ -189,7 +192,7 @@ const WOLoginHome = () => {
       {/* ------------------Image Slider 1------------------------ */}
       <ImageSlider images={urls}/>
       {/* ------------------Image Slider 1------------------------ */}
-
+</Link>
 
       {/* ---------------------Category 1------------------------------------ */}
       <HEADDIV>
@@ -206,17 +209,21 @@ const WOLoginHome = () => {
         </div>
       </TRPDIV>
       <CardSwitcher aboveShift={"45px"} center={true} slideWidth={window.innerWidth - (0.05*window.innerWidth)}>
-        {productTextSwitcher.map((el,index) => <SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/>)}
+        {productTextSwitcher.map((el,index) => <Link to={`/product_details/${productTextSwitcherId[index]}`}><SimpleTextCard p={"0.7rem"} dims={50} as={"h1"} size={"xl"} key={index} text={el}/></Link>)}
       </CardSwitcher>
     </div>
+    <Link to="/productlist">
     <MainICC/>
+    </Link>
 
+    <Link to="/productlist">
     <div style={{width:"100%", backgroundColor:"black", paddingBottom:"40px"}}>
       <img style={{width:"100%"}} src='https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/banner%2FSquare%20pictures%2FONLY%20ON.png?alt=media&token=c59e8da6-e203-4905-bbdf-fe38694bbdac&_gl=1*xxzltn*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NjI1NTM4Ni4zMC4xLjE2OTYyNTUzOTguNDguMC4w'/>
       <CardSwitcher center={true} slideWidth={0.33*window.innerWidth} aboveShift={"23vw"}>
           {simpleImageSwitcher?.map((el, index) => <SimpleImageTextCard key={index} {...el}/>)}
       </CardSwitcher>
     </div>
+    </Link>
 
     <div>
       <img src='https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1672040129.jpg' alt='horizontal banner'/>
@@ -224,7 +231,7 @@ const WOLoginHome = () => {
     <div>
       <img src='https://images.bewakoof.com/uploads/grid/app/Desktop-Strip-3-1669022420.jpg' alt='horizontal banner'/>
     </div>
-
+    <Footer/>
     </DIV>
   )
 }

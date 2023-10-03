@@ -27,7 +27,6 @@ function ProductCart({id, image, title, price, category, rating, numVotes}) {
     </>
   )
 }
-
 export default ProductCart
 
 const IMG = styled.img`

@@ -20,12 +20,13 @@ const AllRoutes = () => {
         <Route path='/' element={<Home />} />
         <Route path='/product_details/:id' element={<ProductDetails />} />
         <Route path="/product_details/:id/checkout" element={<CheckoutPage />} />
+
         <Route path='/product_details/:id/checkout/payment' element={<PaymentPage />} />
         <Route path='/login' element={<LoginPage />} />
-
         <Route path='/ProductList' element={<ProductList />} />
 
         <Route path="/admin" element={<AdminPage />}></Route>
+
 
       </Routes>
     </div>

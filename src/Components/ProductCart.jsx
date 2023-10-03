@@ -92,7 +92,6 @@ function ProductCart({id, image, title, price, category, rating, numVotes, fullS
     </>
   )
 }
-
 export default ProductCart
 
 const IMG = styled.img`
@@ -181,3 +180,4 @@ const MAINDIV = styled.div`
 `
 
     
+

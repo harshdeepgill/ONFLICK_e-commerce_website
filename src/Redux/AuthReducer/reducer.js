@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCSESS, SIGNOUT, SIGNUP_SUCCESS } from "./actionType";
+import { CART_ADD, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCSESS, SIGNOUT, SIGNUP_SUCCESS, WISHLIST_ADD } from "./actionType";
 
 const intialstate = {
     isAuth:false,
@@ -42,6 +42,14 @@ export const reducer = (state= intialstate,{type,payload}) => {
                 ...state,
                 isLoading:false,
                 isError:false
+            }
+            case WISHLIST_ADD: return {
+                ...state,
+                wishlist: payload.wishlist
+            }
+            case CART_ADD: return {
+                ...state,
+                cart: payload.cart
             }
             case SIGNOUT: return intialstate
         default:

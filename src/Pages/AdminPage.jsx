@@ -1,68 +1,79 @@
 import React, { useState } from 'react'
-import Header from '../Components/AdminUtilites/Header'
 import SideMenu from '../Components/AdminUtilites/SideMenu'
 import PageContent from '../Components/AdminUtilites/PageContent'
 import styled from 'styled-components'
 
 
 
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Layout, theme } from 'antd';
+import AdminNavbar from '../Components/AdminUtilites/AdminNavbar';
+
+import Dashboard from '../Components/AdminUtilites/Dashboard';
+import { useNavigate } from 'react-router-dom';
+import Orders from '../Components/AdminUtilites/Orders';
+import Customers from '../Components/AdminUtilites/Customers';
+import Inventory from '../Components/AdminUtilites/Inventory';
+
+const { Header, Sider, Content } = Layout;
 
 
 
 
 const AdminPage = () => {
-   
-   
-  
-    return (
-      <DIV>
 
-        <Header/>
-        <div className="SideMenuAndPageContent">
-       <SideMenu/>
-       <PageContent/>
-      </div>
-      </DIV>
+  const [selectedPage, SetselectedPage] = useState("dashboard")
 
-    )
+  const [collapsed, setCollapsed] = useState(false);
+  const nav = useNavigate()
+  if (selectedPage === "/") {
+    nav("/")
+  }
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  const handleHamburgerClick = () => {
+    setCollapsed(!collapsed);
+  };
+  const handleSelector = (path) => {
+    SetselectedPage(path)
+  }
+
+  return (
+    <Layout>
+      <Header style={{ padding: 0, background: colorBgContainer, }} >
+        <AdminNavbar handleHamburgerClick={handleHamburgerClick} collapsed={collapsed} selectedPage={selectedPage} />
+      </Header>
+      <Layout>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <div className="demo-logo-vertical" />
+          <SideMenu isOpen={collapsed} handleSelector={handleSelector} />
+        </Sider>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          {selectedPage === "dashboard" && < Dashboard />}
+          {selectedPage === "inventory" && <Inventory />}
+          {selectedPage === "orders" && <Orders />}
+          {selectedPage === "customers" && <Customers />}
+
+        </Content>
+      </Layout>
+    </Layout>
+  )
 }
 
 export default AdminPage
 
-const DIV = styled.div`
-  box-sizing: border-box;
-  margin:0px;
-  padding: 0%;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-
-.AppHeader{
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 24px 4px 18px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.SideMenuAndPageContent{
-    display: flex;
-    flex: 1;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.05) ;
-}
-.SideMenu{
-  
-    height: 100%;
-}
-.SideMenuVertical{
-    height: 100%;
-}
-.PageContent{
-    margin: 20px;
-    padding-left: 12px;
-}
-`

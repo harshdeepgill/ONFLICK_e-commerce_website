@@ -15,6 +15,7 @@ import Logo from './Logo';
 import { LOGIN_FAILURE, LOGIN_SUCSESS, SIGNOUT } from '../Redux/AuthReducer/actionType';
 import { login } from '../Redux/AuthReducer/action';
 import SimpleTextCard from './Cards/SimpleTextCard';
+import WishlistCard from './Cards/WishlistCard';
 
 
 export const categoryData = [
@@ -212,10 +213,11 @@ function Navbar() {
               <SimpleTextCard OnClick={()=>{navigate("/ProductList")}} p={"3rem"} dims={"20"} size={"sm"} as={"h6"} text={"PRODUCTS"}/>
             </HOVERINGDIV>
             :
-            <HOVERINGDIV>
-              <Text>Add Products</Text>
-              <SimpleTextCard text={"PRODUCTS"}/>
-            </HOVERINGDIV>
+            <HOVERINGDIV2>
+              {wishlist.length>0 &&<WishlistCard halfStar={Math.ceil(wishlist[0].rating)-Math.floor(wishlist[0].rating) == 1? 1:0} emptyStar={5 - Math.ceil(wishlist[0].rating)} fullStar={Math.floor(wishlist[0].rating)}  {...wishlist[0]}/>}
+              {wishlist.length>1 &&<WishlistCard halfStar={Math.ceil(wishlist[1].rating)-Math.floor(wishlist[1].rating) == 1? 1:0} emptyStar={5 - Math.ceil(wishlist[1].rating)} fullStar={Math.floor(wishlist[1].rating)} {...wishlist[1]}/>}
+              {wishlist.length>2 &&<WishlistCard halfStar={Math.ceil(wishlist[2].rating)-Math.floor(wishlist[2].rating) == 1? 1:0} emptyStar={5 - Math.ceil(wishlist[2].rating)} fullStar={Math.floor(wishlist[2].rating)} {...wishlist[1]}/>}
+            </HOVERINGDIV2>
           }
           <QTYDIV num={wishlist.length}>{wishlist.length}</QTYDIV>
         </ICONDIV>
@@ -226,6 +228,7 @@ function Navbar() {
       </DIVLOGO>
     </DIV>
       <SignInAndSignUp isOpen={isOpen} onClose={onClose}/>
+
     </>
   )
 }
@@ -241,6 +244,29 @@ const ICONDIV = styled.div`
 `
 
 const HOVERINGDIV = styled.div`
+z-index: 5;
+  min-width: 380px;
+  min-height: 145px;
+  background-color: white;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  transition: 1000ms display ease-in-out;
+
+
+  ${ICONDIV}:hover &{
+
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+  }
+`
+const HOVERINGDIV2 = styled.div`
+z-index: 5;
   min-width: 380px;
   min-height: 145px;
   background-color: white;

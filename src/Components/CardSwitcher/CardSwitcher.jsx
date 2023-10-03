@@ -17,6 +17,7 @@ const CardSwitcher = ({children, slideWidth,aboveShift, left = false, right = fa
   }
 
   const handleRight = () =>{
+    console.log("abc")
     slider.current.scrollLeft += slideWidth; 
     if(slider.current.scrollLeft >=slider.current.scrollWidth - window.innerWidth){
       setForwardState(false)
@@ -85,6 +86,10 @@ height: 60px;
   justify-content: center;
   align-items: center;
   visibility: ${(props)=> (props.leftS == 0? "hidden":"visible")};
+
+  &:hover{
+    cursor: pointer;
+  }
 `
 const FDIV = styled.div`
 position: absolute;
@@ -101,4 +106,7 @@ height: 60px;
   justify-content: center;
   align-items: center;
   visibility: ${(props)=> (props.leftS? "visible":"hidden")};
+  &:hover{
+    cursor: pointer;
+  }
 `

@@ -1,57 +1,67 @@
+import React, { useState } from 'react';
 import {
   AppstoreOutlined,
+  LoginOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import { Menu } from "antd";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+} from '@ant-design/icons';
+import { Menu, Space } from 'antd';
+import styled from 'styled-components';
+export default function SideMenu({ collapsed, handleSelector }) {
+  const [selectedKeys, setSelectedKeys] = useState("dashboard");
 
-function SideMenu() {
-  const location = useLocation();
-  const [selectedKeys, setSelectedKeys] = useState("/admin");
 
-  useEffect(() => {
-    const pathName = location.pathname;
-    setSelectedKeys(pathName);
-  }, [location.pathname]);
-
-  const navigate = useNavigate();
   return (
-    <div className="SideMenu">
+    <DIV >
       <Menu
-        className="SideMenuVertical"
-        mode="vertical"
+        theme="dark"
+        mode="inline"
+        defaultSelectedKeys={['2']}
+        inlineCollapsed={collapsed}
         onClick={(item) => {
-          //item.key
-          navigate(item.key);
+
+          handleSelector(item.key)
+
+          setSelectedKeys(item.key)
         }}
         selectedKeys={[selectedKeys]}
         items={[
           {
+            label: "",
+            key: "",
+          },
+          {
             label: "Dashbaord",
             icon: <AppstoreOutlined />,
-            key: "/admin",
+            key: "dashboard",
           },
           {
             label: "Inventory",
-            key: "/admin/inventory",
+            key: "inventory",
             icon: <ShopOutlined />,
           },
           {
             label: "Orders",
-            key: "/admin/orders",
+            key: "orders",
             icon: <ShoppingCartOutlined />,
           },
           {
             label: "Customers",
-            key: "/admin/customers",
+            key: "customers",
             icon: <UserOutlined />,
           },
+          {
+            label: "Logout",
+            key: "/",
+            icon: <LoginOutlined />,
+          },
         ]}
-      ></Menu>
-    </div>
+      />
+    </DIV>
   );
-}
-export default SideMenu;
+};
+const DIV=styled.div`
+  /* width: 210px; */
+ height: 100vh;
+`

@@ -1,3 +1,6 @@
-export const GET_REQUEST = 'GET_REQUEST'
-export const GET_SUCCESS = 'GET_SUCCESS'
-export const GET_FAILEAR = 'GET_FAILEAR'
+export const GET_REQUEST = 'GET_REQUEST';
+export const GET_SUCCESS = 'GET_SUCCESS';
+export const GET_FAILEAR = 'GET_FAILEAR';
+
+export const GET_NEW_SUCCESS = "GET_NEW_SUCCESS"; 
+export const END_OF_PRODUCT_LIST = "END_OF_PRODUCT_LIST"

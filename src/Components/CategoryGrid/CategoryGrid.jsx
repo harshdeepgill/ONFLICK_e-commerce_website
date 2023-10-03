@@ -1,12 +1,13 @@
 import React from 'react'
 import CategoryGridCard from './CategoryGridCard'
 import styled from 'styled-components'
+import {Link} from "react-router-dom";
 const categoryData = [
   {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FFurniture.png?alt=media&token=e37098a5-193f-4f5c-b6da-af74eeea5fd9&_gl=1*z5fol*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTgzMjgyNC4yMC4xLjE2OTU4MzMxMzIuMC4wLjA.",
   text: "Furniture"
   },
     {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FHeadphones.jpg?alt=media&token=922e0a68-9263-4fcc-8a46-2b9407754512&_gl=1*kma976*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTkyODgzOS4yNS4xLjE2OTU5MjkwMjAuMzguMC4w",
-    text: "Headphone"
+    text: "Headphones"
     },
     {imageUrl:"https://firebasestorage.googleapis.com/v0/b/decisive-duck.appspot.com/o/Resources%2FCategory_cards%2FBags.png?alt=media&token=22d55a34-84ab-43eb-a36f-2663d11d0345&_gl=1*twlpm8*_ga*OTcyNzU4NTcxLjE2OTQxMjAyNjM.*_ga_CW55HF8NVT*MTY5NTgzMjgyNC4yMC4xLjE2OTU4MzMwOTAuMC4wLjA.",
     text: "Bags"
@@ -25,7 +26,7 @@ const categoryData = [
 const CategoryGrid = () => {
   return (
     <DIV>
-        {categoryData.map((el, index) => <CategoryGridCard key={index}  text={el.text} image={el.imageUrl}/>)}
+        {categoryData.map((el, index) => <Link to={`/productlist?category=${el.text}`}><CategoryGridCard key={index}  text={el.text} image={el.imageUrl}/></Link>)}
     </DIV>
   )
 }

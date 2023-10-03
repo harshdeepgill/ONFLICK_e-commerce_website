@@ -48,10 +48,14 @@ const SignInAndSignUp = ({onClose,isOpen}) => {
   
 
   const loginSubmit = () => {
+  
 
     dispatch(login(loginData))
       .then((res) => {
-        if (res.data.password === loginData.password) {
+        if(res.data.id==="admin1234@gmail.com" && res.data.password==="admin@1234"){
+          nvigate("/admin")
+        }
+       else if (res.data.password === loginData.password) {
           dispatch({ type: LOGIN_SUCSESS, payload:res.data });
           localStorage.setItem("flickUser", JSON.stringify({isAuthFlick:true, id:res.data.id}));
 

@@ -1,6 +1,6 @@
 import { Avatar, Button, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getUsers } from "../../Redux/AdminReducer/action";
+import { deleteUser, getUsers } from "../../Redux/AdminReducer/action";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -13,7 +13,9 @@ const dispatch=useDispatch()
    
     dispatch(getUsers)
   }, []);
-// console.group(users)
+const handleDelete=(id)=>{
+  dispatch(deleteUser(id))
+}
   return (
     <DIV>
     <Space size={20} direction="vertical">
@@ -32,10 +34,7 @@ const dispatch=useDispatch()
             title: "Name",
             dataIndex: "name",
           },
-          // {
-          //   title: "LastName",
-          //   dataIndex: "lastName",
-          // },
+         
           {
             title: "Email",
             dataIndex: "id",
@@ -44,29 +43,14 @@ const dispatch=useDispatch()
             title: "Password",
             dataIndex: "password",
           },
-          // {
-          //   title: "Phone",
-          //   dataIndex: "phone",
-          // },
-
-          // {
-          //   title: "address",
-          //   dataIndex: "address",
-          //   render: (address) => {
-          //     return (
-          //       <span>
-          //         {address.address}, {address.city}
-          //       </span>
-          //     );
-          //   },
-          // },
+     
           {
             title: 'Actions',
             dataIndex: 'actions',
             render: (_, record) => (
               <Space>
               
-                <Button type="primary" danger ghost onClick={() => {}}>Delete</Button>
+                <Button type="primary" danger ghost onClick={() => {handleDelete(record.id)}}>Delete</Button>
               </Space>
             ),
           },

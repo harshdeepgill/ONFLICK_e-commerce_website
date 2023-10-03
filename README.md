@@ -1,78 +1,77 @@
+# Decisive Duck - E-Commerce Website
 
-------------------------------NPM Packages----------------------
-npm install react-icons --save
+# **_RCT-211 - Construct Week Project For Unit-5._**
 
+# **_Project Code:- decisive-duck-1364_**
 
+# **_Project Purpose:- E-Commerce Website_**
 
-------------------------------NPM Packages----------------------
-# Getting Started with Create React App
+**_"Welcome to our dynamic e-commerce platform! Discover a seamless online shopping experience with an extensive range of products, user-friendly navigation, and secure payment options. Explore the latest trends and shop from the comfort of your home. Your one-stop destination for all your shopping needs!"_**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## **_Team Members_** :
 
-In the project directory, you can run:
+**_Team Lead & Student Code_** : **_Harshdeep Gill ( fw27_081 ) https://github.com/harshdeepgill_**
 
-### `npm start`
+**_Team Member-1 & Student Code_** : **_Vamshi Krishna Bejjarapu ( fp10_130 ) https://github.com/vk10082000_**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**_Team Member-2 & Student Code_** : **_Vishal Kumar Nigam ( fw23_0719 ) https://github.com/VishalKNigam_**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**_Team Member-3 & Student Code_** : **_Shivam Maurya ( fw27_074 ) https://github.com/vibhamaurya011_**
 
-### `npm test`
+**_Team Member-4 & Student Code_** : **_Jitu Gandhare ( fw23_0812 ) https://github.com/Jitugandhare_**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**_IA Manager: Vaibhav Sultane_**
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **_Tech Stacks_**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**_Frontend Technologies: React, Redux, Chakra UI, Styled-components_**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**_Additional Tools: Mock API , Google Firebase (used for content storage and URL retrieval)_**
 
-### `npm run eject`
+## **_Important Links_**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**_Project Live Link:- https://decisive-duck-1364-9rnayblsd-vk10082000.vercel.app/_**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **_Home Page_**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<img width="1075" alt="error" src="">
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<img width="1075" alt="error" src="">
 
-## Learn More
+## **_Product Page_**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img width="1069" alt="error" src="">
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## **_Admin Page_**
 
-### Code Splitting
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## **_Admin Inventory_**
 
-### Analyzing the Bundle Size
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## **_Admin CheckOrders_**
 
-### Making a Progressive Web App
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## **_SignUp Page__Login Page_**
 
-### Advanced Configuration
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## **_SignUp Page_/_Login Page_**
 
-### Deployment
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## **_Checkout Page_**
 
-### `npm run build` fails to minify
+<img width="1064" alt="error" src="">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## **_Payment Page_**
 
+<img width="1064" alt="error" src="">
+
+# Thank You

@@ -7,12 +7,13 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Menu, Space } from 'antd';
+import styled from 'styled-components';
 export default function SideMenu({ collapsed, handleSelector }) {
   const [selectedKeys, setSelectedKeys] = useState("dashboard");
 
 
   return (
-    <Space >
+    <DIV >
       <Menu
         theme="dark"
         mode="inline"
@@ -57,6 +58,10 @@ export default function SideMenu({ collapsed, handleSelector }) {
           },
         ]}
       />
-    </Space>
+    </DIV>
   );
 };
+const DIV=styled.div`
+  /* width: 210px; */
+ height: 100vh;
+`

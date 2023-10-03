@@ -38,40 +38,40 @@
 
 ## **_Home Page_**
 
-<img width="1075" alt="error" src="">
+<img width="1075" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/home.png">
 
-<img width="1075" alt="error" src="">
+<img width="1075" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/home2.png">
 
 ## **_Product Page_**
 
-<img width="1069" alt="error" src="">
+<img width="1069" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/ProductPage.png">
+
+## **_Single Product Page_**
+
+<img width="1069" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/singleProductPage.png">
 
 ## **_Admin Page_**
 
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/admin.png">
 
 ## **_Admin Inventory_**
 
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/adminInverntory.png">
 
 ## **_Admin CheckOrders_**
 
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/CheckOrders.png?raw=true">
 
 ## **_SignUp Page__Login Page_**
 
-<img width="1064" alt="error" src="">
-
-## **_SignUp Page_/_Login Page_**
-
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/login.png">
 
 ## **_Checkout Page_**
 
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/Checkout1.png">
 
 ## **_Payment Page_**
 
-<img width="1064" alt="error" src="">
+<img width="1064" alt="error" src="https://github.com/harshdeepgill/decisive-duck-1364/blob/main/public/images/payment.png">
 
 # Thank You

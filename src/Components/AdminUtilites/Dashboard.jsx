@@ -1,95 +1,235 @@
-import { Avatar, Rate, Space, Table, Typography } from "antd";
+import {
+  DollarCircleOutlined,
+  ShoppingCartOutlined,
+  ShoppingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getOrders } from "../../Redux/AdminReducer/action";
-import styled from "styled-components";
 
 
-function Orders() {
-  const [loading, setLoading] = useState(false);
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+import { getInventory, getOrders, getRevenue, getUsers } from "../../Redux/AdminReducer/action";
+import { useDispatch, useSelector } from "react-redux";
+import { TollSharp } from "@mui/icons-material";
+
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+function Dashboard() {
+  const [orders, setOrders] = useState(0);
+ 
+  const [revenue, setRevenue] = useState(57568);
+  let {products,users} = useSelector((store)=>store.adminReducer)
+ 
+
+// console.log(users,products)
+  const dispatch = useDispatch()
+ useEffect(()=>{
+  dispatch(getInventory)
+  dispatch(getUsers)
+ 
+  if(users){
+    let totalOrders = 0
+    users.forEach(element => {
+    if(element.orders){
+      totalOrders+=element.orders.length
+      // console.log(element.orders)
+    }
+  });
+  setOrders(totalOrders)
+  }
+
+  // setInventory(products.length)
+  // setUsers(users.length)
+ },[])
+
+
+
+  return (
+    <Space size={20} direction="vertical">
+      <Typography.Title level={4}>Dashboard</Typography.Title>
+      <Space direction="horizontal">
+        <DashboardCard
+          icon={
+            <ShoppingCartOutlined
+              style={{
+                color: "green",
+                backgroundColor: "rgba(0,255,0,0.25)",
+                borderRadius: 20,
+                fontSize: 24,
+                padding: 8,
+              }}
+            />
+          }
+          title={"Orders"}
+          value={orders}
+        />
+        <DashboardCard
+          icon={
+            <ShoppingOutlined
+              style={{
+                color: "blue",
+                backgroundColor: "rgba(0,0,255,0.25)",
+                borderRadius: 20,
+                fontSize: 24,
+                padding: 8,
+              }}
+            />
+          }
+          title={"Inventory"}
+          value={products.length}
+        />
+        <DashboardCard
+          icon={
+            <UserOutlined
+              style={{
+                color: "purple",
+                backgroundColor: "rgba(0,255,255,0.25)",
+                borderRadius: 20,
+                fontSize: 24,
+                padding: 8,
+              }}
+            />
+          }
+          title={"Customer"}
+          value={users.length}
+        />
+        <DashboardCard
+          icon={
+            <DollarCircleOutlined
+              style={{
+                color: "red",
+                backgroundColor: "rgba(255,0,0,0.25)",
+                borderRadius: 20,
+                fontSize: 24,
+                padding: 8,
+              }}
+            />
+          }
+          title={"Revenue"}
+          value={revenue}
+        />
+      </Space>
+      <Space>
+        <RecentOrders />
+        <DashboardChart />
+      </Space>
+    </Space>
+  );
+}
+
+function DashboardCard({ title, value, icon }) {
+  return (
+    <Card>
+      <Space direction="horizontal">
+        {icon}
+        <Statistic title={title} value={value} />
+      </Space>
+    </Card>
+  );
+}
+function RecentOrders() {
   const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     getOrders().then((res) => {
-      setDataSource(res.products);
+      setDataSource(res.products.splice(0, 3));
       setLoading(false);
     });
   }, []);
 
   return (
-    <DIV>
-    <Space size={20} direction="vertical">
-      <Typography.Title level={4}>Orders</Typography.Title>
+    <>
+      <Typography.Text>Recent Orders</Typography.Text>
       <Table
-        loading={loading}
         columns={[
           {
             title: "Title",
             dataIndex: "title",
           },
           {
-            title: "Price",
-            dataIndex: "price",
-            render: (value) => <span>${value}</span>,
-          },
-          {
-            title: "DiscountedPrice",
-            dataIndex: "discountedPrice",
-            render: (value) => <span>${value}</span>,
-          },
-          {
             title: "Quantity",
             dataIndex: "quantity",
           },
           {
-            title: "Total",
-            dataIndex: "total",
+            title: "Price",
+            dataIndex: "discountedPrice",
           },
         ]}
+        loading={loading}
         dataSource={dataSource}
-        pagination={{
-          pageSize: 5,
-        }}
+        pagination={false}
       ></Table>
-    </Space>
-    </DIV>
+    </>
   );
 }
-export default Orders;
-const DIV = styled.div`
-  /* CSS for the Space component */
-space {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Align items to the start of the container */
-}
 
-/* CSS for the Typography.Title */
-title {
-  margin-bottom: 10px; /* Adjust margin between title and table */
-}
+function DashboardChart() {
+  const [reveneuData, setReveneuData] = useState({
+    labels: [],
+    datasets: [],
+  });
 
-/* CSS for the Table component */
-.table {
-  width: 100%;
-  border: 1px solid #e8e8e8; /* Border color for the table */
-}
+  useEffect(() => {
+    getRevenue().then((res) => {
+      const labels = res.carts.map((cart) => {
+        return `User-${cart.userId}`;
+      });
+      const data = res.carts.map((cart) => {
+        return cart.discountedTotal;
+      });
 
-/* CSS for table header */
-.custom-table .ant-table-thead th {
-  font-weight: bold;
-  background-color: #f0f0f0; /* Header background color */
-}
+      const dataSource = {
+        labels,
+        datasets: [
+          {
+            label: "Revenue",
+            data: data,
+            backgroundColor: "rgba(255, 0, 0, 1)",
+          },
+        ],
+      };
 
-/* CSS for table rows */
-.custom-table .ant-table-tbody > tr > td {
-  padding: 12px;
-  border-bottom: 1px solid #e8e8e8; /* Border color between rows */
-}
+      setReveneuData(dataSource);
+    });
+  }, []);
 
-/* CSS for hover effect on rows */
-.custom-table .ant-table-tbody > tr:hover {
-  background-color: #f9f9f9; /* Hover background color for rows */
-}
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom",
+      },
+      title: {
+        display: true,
+        text: "Order Revenue",
+      },
+    },
+  };
 
-`
+  return (
+    <Card style={{ width: 500, height: 250 }}>
+      <Bar options={options} data={reveneuData} />
+    </Card>
+  );
+}
+export default Dashboard;

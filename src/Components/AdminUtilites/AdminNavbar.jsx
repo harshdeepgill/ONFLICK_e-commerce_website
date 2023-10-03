@@ -9,25 +9,21 @@ import styled from "styled-components";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 
-function AdminNavbar({ handleHamburgerClick ,collapsed }) {
+function AdminNavbar({ handleHamburgerClick, collapsed }) {
 
 
 
   return (
     <DIV className="nav">
-       <div className='toggle-btn'>
-      <Button onClick={handleHamburgerClick} >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
-    <Logo size={"24px"}/>
-   </div>
-    <div className='admin'>Admin
-      <RiAdminLine/>
-    </div>
-     
-       
-     
-
+      <div className='toggle-btn'>
+        <Button onClick={handleHamburgerClick} >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </Button>
+        <Logo size={"24px"} />
+      </div>
+      <div className='admin'>Admin
+        <RiAdminLine />
+      </div>
     </DIV>
   );
 }

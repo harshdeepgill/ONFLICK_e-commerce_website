@@ -1,12 +1,14 @@
-import React from 'react'
-import AdminAllRoutes from './AdminAllRoutes'
+// import React from 'react'
 
-const PageContent = () => {
-  return (
-    <div className="PageContent">
-    <AdminAllRoutes/>
-    </div>
-  )
-}
+// // import AllRoutes from '../AllRoutes'
+// import AdminAllRoutes from './AdminAllRoutes'
 
-export default PageContent
+// const PageContent = () => {
+//   return (
+//     <div className="PageContent">
+//     <AdminAllRoutes/>
+//     </div>
+//   )
+// }
+
+// export default PageContent

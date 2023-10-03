@@ -8,6 +8,7 @@ import PaymentPage from '../Pages/PaymentPage';
 import { ProductList } from '../Pages/ProductList';
 import ProtectedRoute from './ProtectedRoute';
 import LoginPage from './LoginPage';
+
 import CheckoutPage from '../Pages/CheckoutPage';
 
 import AdminPage from '../Pages/AdminPage';

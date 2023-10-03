@@ -65,8 +65,11 @@ function Inventory() {
                 duration: 9000,
                 isClosable: true,
             })
+
             onAddClose()
+
             setProduct(initialProduct)
+            
         })
     }
     const handleDelete = (id) => {

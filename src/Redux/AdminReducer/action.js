@@ -45,7 +45,7 @@ let usersURL = `https://woozy-luck-thunbergia.glitch.me`;
   };
   export const deleteProduct = (id) =>(dispatch)=> {
     dispatch({type:ADMIN_REQUEST})
-    return axios.delete(`${url}/users/${id}`).then((res)=>{
+    return axios.delete(`${url}/${id}`).then((res)=>{
       dispatch({type:ADMIN_PRODUCT_DELETE})
       console.log("shiva")
       getInventory(dispatch)

@@ -69,6 +69,7 @@ function Inventory() {
         })
     }
     const handleDelete = (id) => {
+        console.log("hello")
         dispatch(deleteProduct(id))
     }
     const handleUpdateProduct = (id) => {

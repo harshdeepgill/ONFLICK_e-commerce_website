@@ -32,7 +32,7 @@ const AdminPage = () => {
 
   const [collapsed, setCollapsed] = useState(false);
   const nav = useNavigate()
-  if (selectedPage == "/") {
+  if (selectedPage === "/") {
     nav("/")
   }
   const {
